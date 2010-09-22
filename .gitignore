@@ -1,0 +1,12 @@
+.bundle
+.gems
+.gems_old
+Gemfile.lock
+
+config/database.yml
+
+log/*
+nbproject/*
+.idea/*
+tmp/*
+
