@@ -9,5 +9,6 @@ group :development, :test do
 	gem "rspec-rails",  "1.3.2"
 	gem "factory_girl", "1.3.2"
 	gem "ZenTest"
-  gem "rcov"
+    gem 'mysql',    '2.8.1'
+   gem "rcov"
 end
