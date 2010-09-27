@@ -1,0 +1,13 @@
+<p>
+  <b>Title:</b>
+  <%=h @bid_item.title %>
+</p>
+
+<p>
+  <b>Body:</b>
+  <%=h @bid_item.body %>
+</p>
+
+
+<%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
+<%= link_to 'Back', bid_items_path %>
