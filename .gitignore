@@ -13,3 +13,4 @@ tmp/*
 test/*
 db/*.sqlite3
 db/*.db
+coverage/*
