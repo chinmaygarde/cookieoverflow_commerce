@@ -8,9 +8,9 @@
   <%= stylesheet_link_tag 'scaffold' %>
 </head>
 <body>
-
+<%= render :partial => "layouts/login_status" %>
 <p style="color: green"><%= notice %></p>
-
+<%= render :partial => "layouts/nav_bar" %>
 <%= yield %>
 
 </body>
