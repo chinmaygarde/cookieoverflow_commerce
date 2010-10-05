@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe BidItemsController do
 
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs).as_null_object
+  end
+
   def mock_bid_item(stubs={})
     @mock_bid_item ||= mock_model(BidItem, stubs)
   end
@@ -23,6 +27,9 @@ describe BidItemsController do
   end
 
   describe "GET new" do
+    before(:each) do
+       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
+    end
     it "assigns a new bid_item as @bid_item" do
       BidItem.stub(:new).and_return(mock_bid_item)
       get :new
@@ -31,6 +38,9 @@ describe BidItemsController do
   end
 
   describe "GET edit" do
+    before(:each) do
+       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
+    end
     it "assigns the requested bid_item as @bid_item" do
       BidItem.stub(:find).with("37").and_return(mock_bid_item)
       get :edit, :id => "37"
@@ -39,16 +49,22 @@ describe BidItemsController do
   end
 
   describe "POST create" do
-
+    before(:each) do
+       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
+    end
     describe "with valid params" do
       it "assigns a newly created bid_item as @bid_item" do
         BidItem.stub(:new).with({'these' => 'params'}).and_return(mock_bid_item(:save => true))
+        @bid_item = mock_bid_item
+        @bid_item.should_receive(:user=)
         post :create, :bid_item => {:these => 'params'}
         assigns[:bid_item].should equal(mock_bid_item)
       end
-
+      
       it "redirects to the created bid_item" do
         BidItem.stub(:new).and_return(mock_bid_item(:save => true))
+        @bid_item = mock_bid_item
+        @bid_item.should_receive(:user=)
         post :create, :bid_item => {}
         response.should redirect_to(bid_item_url(mock_bid_item))
       end
@@ -57,12 +73,16 @@ describe BidItemsController do
     describe "with invalid params" do
       it "assigns a newly created but unsaved bid_item as @bid_item" do
         BidItem.stub(:new).with({'these' => 'params'}).and_return(mock_bid_item(:save => false))
+        @bid_item = mock_bid_item
+        @bid_item.should_receive(:user=)
         post :create, :bid_item => {:these => 'params'}
         assigns[:bid_item].should equal(mock_bid_item)
       end
 
       it "re-renders the 'new' template" do
         BidItem.stub(:new).and_return(mock_bid_item(:save => false))
+        @bid_item = mock_bid_item
+        @bid_item.should_receive(:user=)
         post :create, :bid_item => {}
         response.should render_template('new')
       end
@@ -71,7 +91,9 @@ describe BidItemsController do
   end
 
   describe "PUT update" do
-
+    before(:each) do
+       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
+    end
     describe "with valid params" do
       it "updates the requested bid_item" do
         BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
@@ -115,6 +137,9 @@ describe BidItemsController do
   end
 
   describe "DELETE destroy" do
+    before(:each) do
+       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
+    end
     it "destroys the requested bid_item" do
       BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
       mock_bid_item.should_receive(:destroy)

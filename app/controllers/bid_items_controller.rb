@@ -1,4 +1,5 @@
 class BidItemsController < ApplicationController
+  before_filter :authenticate_user!, :except => [:index, :show]
   # GET /bid_items
   # GET /bid_items.xml
   def index
@@ -25,7 +26,6 @@ class BidItemsController < ApplicationController
   # GET /bid_items/new.xml
   def new
     @bid_item = BidItem.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @bid_item }
@@ -41,7 +41,7 @@ class BidItemsController < ApplicationController
   # POST /bid_items.xml
   def create
     @bid_item = BidItem.new(params[:bid_item])
-
+    @bid_item.user = current_user
     respond_to do |format|
       if @bid_item.save
         format.html { redirect_to(@bid_item, :notice => 'BidItem was successfully created.') }
