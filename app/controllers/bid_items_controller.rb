@@ -1,12 +1,11 @@
 class BidItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
-  load_and_authorize_resource
   
   # GET /bid_items
   # GET /bid_items.xml
   def index
     @bid_items = BidItem.all
-
+    unauthorized! if cannot? :read, @bid_items
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @bid_items }
@@ -17,7 +16,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/1.xml
   def show
     @bid_item = BidItem.find(params[:id])
-
+    unauthorized! if cannot? :read, @bid_item
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @bid_item }
@@ -28,6 +27,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/new.xml
   def new
     @bid_item = BidItem.new
+    unauthorized! if cannot? :create, @bid_items   
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @bid_item }
@@ -37,7 +37,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/1/edit
   def edit
     @bid_item = BidItem.find(params[:id])
-    authorize! :edit, @bid_item
+    unauthorized! if cannot? :update, @bid_item
   end
 
   # POST /bid_items
@@ -45,6 +45,7 @@ class BidItemsController < ApplicationController
   def create
     @bid_item = BidItem.new(params[:bid_item])
     @bid_item.user = current_user
+    unauthorized! if cannot? :create, @bid_item
     respond_to do |format|
       if @bid_item.save
         format.html { redirect_to(@bid_item, :notice => 'BidItem was successfully created.') }
@@ -60,7 +61,7 @@ class BidItemsController < ApplicationController
   # PUT /bid_items/1.xml
   def update
     @bid_item = BidItem.find(params[:id])
-
+    unauthorized! if cannot? :update, @bid_item
     respond_to do |format|
       if @bid_item.update_attributes(params[:bid_item])
         format.html { redirect_to(@bid_item, :notice => 'BidItem was successfully updated.') }
@@ -77,7 +78,7 @@ class BidItemsController < ApplicationController
   def destroy
     @bid_item = BidItem.find(params[:id])
     @bid_item.destroy
-
+    unauthorized! if cannot? :destroy, @bid_item
     respond_to do |format|
       format.html { redirect_to(bid_items_url) }
       format.xml  { head :ok }

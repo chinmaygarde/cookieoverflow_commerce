@@ -7,12 +7,4 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
-     filter_resource_access
-  before_filter { |c| Authorization.current_user = c.current_user }
-
-  rescue_from CanCan::AccessDenied do |exception|
-  flash[:error] = "Access denied!"
-  redirect_to root_url :action=>"index", :controller=>"bid_items"
-  end
-
 end
