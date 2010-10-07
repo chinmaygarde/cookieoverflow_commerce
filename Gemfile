@@ -6,8 +6,10 @@ gem "rails",				"2.3.8"
 # Authentication
 gem "devise",				"1.0.8"
 
+gem "cancan",       "1.4.0"
+
 # Databases
-gem "mysql",				"2.8.1"
+#gem "mysql",				"2.8.1"
 
 group :development, :test do
 	# Database: Switch to mysql as soon as possible

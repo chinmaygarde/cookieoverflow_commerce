@@ -35,6 +35,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/1/edit
   def edit
     @bid_item = BidItem.find(params[:id])
+    authorize! :edit, @bid_item
   end
 
   # POST /bid_items
