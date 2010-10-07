@@ -1,5 +1,7 @@
 class BidItemsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
+  load_and_authorize_resource
+  
   # GET /bid_items
   # GET /bid_items.xml
   def index
@@ -35,6 +37,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/1/edit
   def edit
     @bid_item = BidItem.find(params[:id])
+   # unauthorized! if cannot? :edit, @bid_item
   end
 
   # POST /bid_items

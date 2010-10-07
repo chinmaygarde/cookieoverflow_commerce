@@ -8,6 +8,12 @@
   <%=h @bid_item.body %>
 </p>
 
-
-<%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
-<%= link_to 'Back', bid_items_path %>
+<p>
+  <% if can? :update, @bid_item %>
+    <%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
+  <% end %>
+  <% if can? :destroy, @bid_item %>
+    <%= link_to "Destroy", @bid_item, :method => :delete, :confirm => "Are you sure?" %> |
+  <% end %>  
+  <%= link_to 'Back', bid_items_path %>
+</p>

@@ -7,7 +7,7 @@ gem "rails",				"2.3.8"
 gem "devise",				"1.0.8"
 
 # Databases
-gem "mysql",				"2.8.1"
+#gem "mysql",				"2.8.1"
 
 group :development, :test do
 	# Database: Switch to mysql as soon as possible
@@ -25,4 +25,8 @@ group :development, :test do
 	
 	# Test Coverage Reporting
 	gem "rcov",				"0.9.9"
+
+  gem "cancan"
+
+  gem "declarative_authorization"
 end
