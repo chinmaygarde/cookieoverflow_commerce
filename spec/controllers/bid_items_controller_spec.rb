@@ -1,16 +1,17 @@
 require 'spec_helper'
 
 describe BidItemsController do
-
-  def mock_user(stubs={})
-    @mock_user ||= mock_model(User, stubs).as_null_object
-  end
-
   def mock_bid_item(stubs={})
     @mock_bid_item ||= mock_model(BidItem, stubs)
   end
-
+  def mock_user(stubs={})
+    @mock_user ||= mock_model(User, stubs).as_null_object
+  end
+  before(:each) do
+     request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
+  end
   describe "GET index" do
+    
     it "assigns all bid_items as @bid_items" do
       BidItem.stub(:find).with(:all).and_return([mock_bid_item])
       get :index
@@ -27,9 +28,6 @@ describe BidItemsController do
   end
 
   describe "GET new" do
-    before(:each) do
-       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
-    end
     it "assigns a new bid_item as @bid_item" do
       BidItem.stub(:new).and_return(mock_bid_item)
       get :new
@@ -38,9 +36,6 @@ describe BidItemsController do
   end
 
   describe "GET edit" do
-    before(:each) do
-       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
-    end
     it "assigns the requested bid_item as @bid_item" do
       BidItem.stub(:find).with("37").and_return(mock_bid_item)
       get :edit, :id => "37"
@@ -49,9 +44,6 @@ describe BidItemsController do
   end
 
   describe "POST create" do
-    before(:each) do
-       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
-    end
     describe "with valid params" do
       it "assigns a newly created bid_item as @bid_item" do
         BidItem.stub(:new).with({'these' => 'params'}).and_return(mock_bid_item(:save => true))
@@ -91,9 +83,6 @@ describe BidItemsController do
   end
 
   describe "PUT update" do
-    before(:each) do
-       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
-    end
     describe "with valid params" do
       it "updates the requested bid_item" do
         BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
@@ -137,9 +126,6 @@ describe BidItemsController do
   end
 
   describe "DELETE destroy" do
-    before(:each) do
-       request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
-    end
     it "destroys the requested bid_item" do
       BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
       mock_bid_item.should_receive(:destroy)

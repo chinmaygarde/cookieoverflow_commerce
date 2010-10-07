@@ -19,4 +19,9 @@
 
 <br />
 
-<%= link_to 'New bid_item', new_bid_item_path %>
+<% if can? :create, @bid_items %>
+	<%= link_to 'Add new bid item', new_bid_item_path %>
+<% else %>
+	Login to create bid items
+<% end %>
+

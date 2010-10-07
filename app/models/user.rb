@@ -8,4 +8,10 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   
   has_many :bid_items
+  has_and_belongs_to_many :roles
+  
+  def role?(role)
+    role = roles.find_by_title(role)
+    !role.nil?
+  end
 end
