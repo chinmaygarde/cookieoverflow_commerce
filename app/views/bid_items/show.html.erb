@@ -8,6 +8,8 @@
   <%=h @bid_item.body %>
 </p>
 
+    <% if can? :update, @bid_item %>
+    <%= link_to "Edit", edit_bid_item_path(bid_item) %> |
+    <% end %>
 
-<%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
 <%= link_to 'Back', bid_items_path %>
