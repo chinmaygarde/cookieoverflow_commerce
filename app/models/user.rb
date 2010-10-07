@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   
   def role?(role)
-    role = roles.find_by_title(role)
-    !role.nil?
+    !roles.find_by_title(role).nil?
   end
 end
