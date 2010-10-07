@@ -5,6 +5,13 @@ Factory.define :bid_item do |b|
 end
 
 Factory.define :user do |u|
-  u.email     "anonymous@example.com"
+  u.sequence :email do |n|
+    "user#{n}@example.com"
+  end
   u.password  "secret"
+  u.roles { |u| [u.association(:role)] }
+end
+
+Factory.define :role do |r|
+  r.title "buyer"
 end
