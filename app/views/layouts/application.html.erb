@@ -1,17 +1,42 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML>
+<html lang="en">
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>BidItems: <%= controller.action_name %></title>
-  <%= stylesheet_link_tag 'scaffold' %>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>OASPrey</title>
+	<meta name="author" content="CookieOverflow">
+	<%= stylesheet_link_tag "main" %>
+	<%= stylesheet_link_tag "scaffold" %>
+	<%= javascript_include_tag "jquery", "application" %>
 </head>
 <body>
-<%= render :partial => "layouts/login_status" %>
-<p style="color: green"><%= notice %></p>
-<%= render :partial => "layouts/nav_bar" %>
-<%= yield %>
+<div id="top_bar">
+	<div id="top_bar_contents">
+		<div id="logo">
+			<%= image_tag "logo.png", :height => 32 %>
+		</div>
+		<div id="search_bar">
+			<input type="text" value placeholder="Search" results="0">
+		</div>
+		<div id="link_bar">
+			<%= render :partial => "layouts/nav_bar" %>
+		</div>
+		<div id="login_bar">
+			<%= render :partial => "layouts/login_status" %>
+		</div>
+	</div>
+</div>
+<div id="content">
+	<div id="left_content" class="section">
+		<%= yield :left_column %>
+	</div>
+	<div id="right_content" class="section">
+		<%= yield :right_column %>
+	</div>
+	<div id="main_content" class="section">
+		<p style="color: green"><%= notice %></p>
+		<%= yield %>
+	</div>
 
+</div>
 </body>
 </html>
