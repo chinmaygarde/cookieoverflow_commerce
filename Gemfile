@@ -1,5 +1,7 @@
 source :gemcutter
 
+gem "bundler"
+
 # Well, duh..
 gem "rails",				"2.3.8"
 
