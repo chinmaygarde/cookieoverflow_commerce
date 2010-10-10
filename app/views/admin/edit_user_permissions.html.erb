@@ -1,0 +1,6 @@
+<h1>Change Permissions For: <%= @user.email %> </h1>
+<% form_tag(:action => "change_user_permissions", :method => :post) do %>
+  	<%= select_tag "roles", options_for_select(Role.all.collect { |r| r.title }, @user.roles.collect { |r| r.title }), :multiple => true %><br />
+	<%= hidden_field_tag "user_id", @user.id %>
+	<%= submit_tag "Change Roles" %>
+<% end -%>

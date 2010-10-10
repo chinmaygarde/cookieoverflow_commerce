@@ -11,17 +11,17 @@
     <td><%=h bid_item.title %></td>
     <td><%=h bid_item.body %></td>
     <td><%= link_to 'Show', bid_item %></td>
-    <td><%= link_to 'Edit', edit_bid_item_path(bid_item) %></td>
-    <td><%= link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %></td>
+    <td><%= (link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, bid_item %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<% if can? :create, @bid_items %>
+<% if can? :create, BidItem %>
 	<%= link_to 'Add new bid item', new_bid_item_path %>
 <% else %>
-	Login to create bid items
+	Only sellers can create bid items
 <% end %>
 

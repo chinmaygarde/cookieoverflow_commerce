@@ -10,7 +10,21 @@ class User < ActiveRecord::Base
   has_many :bid_items
   has_and_belongs_to_many :roles
   
+  after_create :add_default_roles
+  
   def role?(role)
     !roles.find_by_title(role).nil?
+  end
+  
+  def add_default_roles
+    roles << Role.find_by_title("buyer")
+  end
+  
+  def update_roles(*new_roles)
+    roles.delete_all
+    new_roles.each do |role|
+      r = Role.find_by_title(role)
+      roles << r if !r.nil?
+    end
   end
 end

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cancan/matchers'
 
 describe BidItemsController do
   def mock_bid_item(stubs={})
@@ -37,7 +38,9 @@ describe BidItemsController do
 
   describe "GET edit" do
     it "assigns the requested bid_item as @bid_item" do
-      BidItem.stub(:find).with("37").and_return(mock_bid_item)
+      BidItem.stub(:find).with("37").and_return(mock_bid_item(:user => mock_user))
+      ability = Ability.new(mock_user)
+      ability.can?(:update, mock_bid_item).should be_true
       get :edit, :id => "37"
       assigns[:bid_item].should equal(mock_bid_item)
     end
@@ -85,19 +88,25 @@ describe BidItemsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested bid_item" do
-        BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
+        BidItem.should_receive(:find).with("37").and_return(mock_bid_item(:user => mock_user))
+        ability = Ability.new(mock_user)
+        ability.can?(:update, mock_bid_item).should be_true
         mock_bid_item.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => "37", :bid_item => {:these => 'params'}
       end
 
       it "assigns the requested bid_item as @bid_item" do
-        BidItem.stub(:find).and_return(mock_bid_item(:update_attributes => true))
+        BidItem.stub(:find).and_return(mock_bid_item(:user => mock_user, :update_attributes => true))
+        ability = Ability.new(mock_user)
+        ability.can?(:update, mock_bid_item).should be_true
         put :update, :id => "1"
         assigns[:bid_item].should equal(mock_bid_item)
       end
 
       it "redirects to the bid_item" do
-        BidItem.stub(:find).and_return(mock_bid_item(:update_attributes => true))
+        BidItem.stub(:find).and_return(mock_bid_item(:user => mock_user, :update_attributes => true))
+        ability = Ability.new(mock_user)
+        ability.can?(:update, mock_bid_item).should be_true
         put :update, :id => "1"
         response.should redirect_to(bid_item_url(mock_bid_item))
       end
@@ -105,19 +114,25 @@ describe BidItemsController do
 
     describe "with invalid params" do
       it "updates the requested bid_item" do
-        BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
+        BidItem.should_receive(:find).with("37").and_return(mock_bid_item(:user => mock_user))
+        ability = Ability.new(mock_user)
+        ability.can?(:update, mock_bid_item).should be_true
         mock_bid_item.should_receive(:update_attributes).with({'these' => 'params'})
         put :update, :id => "37", :bid_item => {:these => 'params'}
       end
 
       it "assigns the bid_item as @bid_item" do
-        BidItem.stub(:find).and_return(mock_bid_item(:update_attributes => false))
+        BidItem.stub(:find).and_return(mock_bid_item(:user => mock_user, :update_attributes => false))
+        ability = Ability.new(mock_user)
+        ability.can?(:update, mock_bid_item).should be_true
         put :update, :id => "1"
         assigns[:bid_item].should equal(mock_bid_item)
       end
 
       it "re-renders the 'edit' template" do
-        BidItem.stub(:find).and_return(mock_bid_item(:update_attributes => false))
+        BidItem.stub(:find).and_return(mock_bid_item(:user => mock_user, :update_attributes => false))
+        ability = Ability.new(mock_user)
+        ability.can?(:update, mock_bid_item).should be_true
         put :update, :id => "1"
         response.should render_template('edit')
       end
@@ -127,13 +142,17 @@ describe BidItemsController do
 
   describe "DELETE destroy" do
     it "destroys the requested bid_item" do
-      BidItem.should_receive(:find).with("37").and_return(mock_bid_item)
+      BidItem.should_receive(:find).with("37").and_return(mock_bid_item(:user => mock_user))
+      ability = Ability.new(mock_user)
+      ability.can?(:destroy, mock_bid_item).should be_true
       mock_bid_item.should_receive(:destroy)
       delete :destroy, :id => "37"
     end
 
     it "redirects to the bid_items list" do
-      BidItem.stub(:find).and_return(mock_bid_item(:destroy => true))
+      BidItem.stub(:find).and_return(mock_bid_item(:user => mock_user, :destroy => true))
+      ability = Ability.new(mock_user)
+      ability.can?(:destroy, mock_bid_item).should be_true
       delete :destroy, :id => "1"
       response.should redirect_to(bid_items_url)
     end

@@ -27,7 +27,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/new.xml
   def new
     @bid_item = BidItem.new
-    authorize! :create, @bid_items   
+    authorize! :create, @bid_item
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @bid_item }
@@ -77,8 +77,8 @@ class BidItemsController < ApplicationController
   # DELETE /bid_items/1.xml
   def destroy
     @bid_item = BidItem.find(params[:id])
-    @bid_item.destroy
     authorize! :destroy, @bid_item
+    @bid_item.destroy    
     respond_to do |format|
       format.html { redirect_to(bid_items_url) }
       format.xml  { head :ok }

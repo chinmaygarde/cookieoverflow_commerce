@@ -1,3 +1,7 @@
 <ul>
 	<li><%= link_to "Bid Items", bid_items_path %></li>
+	<% if can? :manage, :users %>
+	  <li><%= link_to "Admin", :controller => "admin", :action => "select_user" %></li>
+	<% end %>
+	
 </ul>
