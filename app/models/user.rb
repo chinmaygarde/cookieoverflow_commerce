@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   
   has_many :bid_items
+  has_many :bid_item_comments
   has_and_belongs_to_many :roles
   
   after_create :add_default_roles

@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.devise_for :users
 
   map.resources :bid_items
+  map.resources :bid_item_comments, :only=> [:create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
 

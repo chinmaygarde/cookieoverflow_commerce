@@ -17,3 +17,33 @@
   <% end %>  
   <%= link_to 'Back', bid_items_path %>
 </p>
+<hr />
+<p>Comments</p>
+<hr />
+<p>
+  <% for comment in @bid_item.bid_item_comments do %>
+<p>
+  <br><%= comment.user.email %> wrote</br>
+  <br><%=h comment.body %></br>
+</p>
+<br>
+  <% if can? :destroy, comment %>
+    <%= link_to "Destroy", comment, :method => :delete, :confirm => "Are you sure?" %> |
+  <% end %>
+</br>
+<hr />
+  <% end %>
+<p>
+  <% form_for(BidItemComment.new) do |f| %>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body %>
+  </p>
+  <%= f.hidden_field(:bid_item_id, :value => @bid_item.id)  %>
+  <p>
+    <%= f.submit 'Add a new comment' %>
+  </p>
+<% end %>
+</p>
+</p>
+
