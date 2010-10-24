@@ -10,6 +10,9 @@
   <tr>
     <td><%=h bid_item.title %></td>
     <td><%=h bid_item.body %></td>
+    <td><%=image_tag bid_item.picture.url%></td>
+
+
     <td><%= link_to 'Show', bid_item %></td>
     <td><%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %></td>
     <td><%= (link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, bid_item %></td>

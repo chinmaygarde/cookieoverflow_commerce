@@ -1,3 +1,4 @@
+
 <p>
   <b>Title:</b>
   <%=h @bid_item.title %>
@@ -7,6 +8,11 @@
   <b>Body:</b>
   <%=h @bid_item.body %>
 </p>
+
+<p>
+<%=image_tag @bid_item.picture.url %>
+</p>
+
 
 <p>
   <% if can? :update, @bid_item %>

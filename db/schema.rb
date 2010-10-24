@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101019030337) do
+ActiveRecord::Schema.define(:version => 20101024013435) do
 
   create_table "bid_item_comments", :force => true do |t|
     t.integer  "user_id"
@@ -25,6 +25,10 @@ ActiveRecord::Schema.define(:version => 20101019030337) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
   end
 
   create_table "roles", :force => true do |t|
