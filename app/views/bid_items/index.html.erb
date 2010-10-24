@@ -22,6 +22,10 @@
 <% if can? :create, BidItem %>
 	<%= link_to 'Add new bid item', new_bid_item_path %>
 <% else %>
-	Only sellers can create bid items
+	<h3>Only sellers can create bid items</h3>
+	<% if current_user %>
+		<% form_tag(:action => "become_seller", :controller => "admin", :method => :post) do |f| %>
+			<%= submit_tag "Become a seller" %>
+		<% end %>
+	<% end %>
 <% end %>
-

@@ -21,6 +21,13 @@ class User < ActiveRecord::Base
     roles << Role.find_by_title("buyer")
   end
   
+  def become_seller
+    # Needs optimization to removed the multiple finds.
+    unless role?("seller")
+      roles << Role.find_by_title("seller")
+    end
+  end
+  
   def update_roles(*new_roles)
     roles.delete_all
     new_roles.each do |role|
