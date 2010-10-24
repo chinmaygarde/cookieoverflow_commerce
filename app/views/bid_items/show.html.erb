@@ -17,8 +17,18 @@
   <% end %>  
   <%= link_to 'Back', bid_items_path %>
 </p>
+<% if @bid_item.tags.count != 0 %>
 <hr />
-<p>Comments</p>
+<b>
+  Tags
+</b>
+<hr />
+<% for tag in @bid_item.tags do %>
+  <%=h tag.title %>&nbsp;
+  <% end %>
+<% end %>
+<hr />
+<p><b>Comments</b></p>
 <hr />
 <p>
   <% for comment in @bid_item.bid_item_comments do %>

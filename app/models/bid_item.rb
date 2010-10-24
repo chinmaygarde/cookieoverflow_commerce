@@ -4,4 +4,5 @@ class BidItem < ActiveRecord::Base
   
   belongs_to :user
   has_many :bid_item_comments
+  has_and_belongs_to_many :tags
 end

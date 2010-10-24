@@ -16,5 +16,15 @@
   </p>
 <% end %>
 
+ <% form_tag(:controller => :tags, :action => :create, :method => :post) do |f| %>
+  <p>
+    <%= text_field_tag  "title" %>
+  </p>
+    <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
+  <p>
+    <%= submit_tag 'Add Tag' %>
+  </p>
+ <% end %>
+
 <%= link_to 'Show', @bid_item %> |
 <%= link_to 'Back', bid_items_path %>

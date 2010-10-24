@@ -28,6 +28,9 @@ class Ability
       can :destroy, BidItemComment do |comment|
         comment.bid_item.user == user
       end
+      can [:create, :update, :destroy], Tag do |tag_name|
+        tag_name.bid_item.user == user
+      end
     end    
   end
 end
