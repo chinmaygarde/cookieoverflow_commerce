@@ -14,6 +14,9 @@ gem "cancan",       		"1.4.0"
 # Databases
 gem "mysql",				"2.8.1"
 
+# Background Jobs
+gem "resque", 				"1.10.0"
+
 group :development, :test do
 	# Database: Switch to mysql as soon as possible
 	gem "sqlite3-ruby",				:require => "sqlite3"
