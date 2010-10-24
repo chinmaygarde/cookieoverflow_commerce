@@ -17,6 +17,9 @@ gem "mysql",				"2.8.1"
 # Background Jobs
 gem "resque", 				"1.10.0"
 
+# Full text search
+gem "thinking-sphinx",		"1.3.11",	:require => "thinking_sphinx"
+
 group :development, :test do
 	# Database: Switch to mysql as soon as possible
 	gem "sqlite3-ruby",				:require => "sqlite3"

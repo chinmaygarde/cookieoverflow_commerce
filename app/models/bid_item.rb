@@ -4,4 +4,9 @@ class BidItem < ActiveRecord::Base
   
   belongs_to :user
   has_many :bid_item_comments
+  
+  define_index do
+    indexes title
+    indexes body
+  end
 end
