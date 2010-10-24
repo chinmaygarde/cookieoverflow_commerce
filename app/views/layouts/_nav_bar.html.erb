@@ -3,5 +3,7 @@
 	<% if can? :manage, :users %>
 	  <li><%= link_to "Admin", :controller => "admin", :action => "select_user" %></li>
 	<% end %>
-	
+	<% if user_signed_in? %>
+	  <li><%= link_to "Support", :controller => "admin", :action => "mail" %></li>
+	<% end %>
 </ul>
