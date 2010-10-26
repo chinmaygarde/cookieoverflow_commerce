@@ -23,13 +23,17 @@
 					selectedItemProp: "name",
 					searchObjProps: "name",
 					startText: "Search Items...",
+					formatList: function(data, elem){
+						var element = elem.html("<div><img src=" + data.image + "\" width=\"80px\" style=\"float:left;\">&nbsp;&nbsp;" + data.name + "</div>");
+						return element;
+					},
 					resultClick: function(data){
 						window.location = "<%= bid_items_path %>" + "/" + data.attributes.value
 					}
 				});
 			});
 		</script>
-			<input id="bid_item_search" type="text" width="300px">
+			<input id="bid_item_search" type="text">
 		</div>
 		<div id="link_bar">
 			<%= render :partial => "layouts/nav_bar" %>
