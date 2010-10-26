@@ -16,11 +16,11 @@
 </p>
 <hr />
 <p>
-  The starting price of the bid item: - $<%=h @bid_item.starting_price.to_f/100 %><br />
+  The starting price of the bid item: => $<%=h @bid_item.starting_price.to_f/100 %><br />
 <% if @bid_item.bids.count != 0 %>
-  The current bids are listed below<br />
+  <b>The current bids are listed below</b><br />
 <% for bid in @bid_item.bids do %>
-  $<%=h bid.bid_amount %> by <%=h bid.user.email %><br />
+  $<%=h bid.bid_amount %> by <i><%=h bid.user.email %></i><br />
 <% end %>
 <% end %>
 <% if can? :create, @bid %>
