@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bid_items
   map.resources :bid_item_comments, :only=> [:create, :destroy]
 
+  map.search_bid_items 'search/bid_item', :controller => "search", :action => "bid_item"
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

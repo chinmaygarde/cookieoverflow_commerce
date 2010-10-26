@@ -6,7 +6,8 @@
 	<meta name="author" content="CookieOverflow">
 	<%= stylesheet_link_tag "main" %>
 	<%= stylesheet_link_tag "scaffold" %>
-	<%= javascript_include_tag "jquery", "application" %>
+	<%= stylesheet_link_tag "autoSuggest" %>
+	<%= javascript_include_tag "jquery", "application", "autosuggest" %>
 </head>
 <body>
 <div id="top_bar">
@@ -15,7 +16,20 @@
 			<%= image_tag "logo.png", :height => 32 %>
 		</div>
 		<div id="search_bar">
-			<input type="text" value placeholder="Search" results="0">
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function(){
+					$("#bid_item_search").autoSuggest("<%= search_bid_items_path %>", {
+					minChars: 2,
+					selectedItemProp: "name",
+					searchObjProps: "name",
+					startText: "Search Items...",
+					resultClick: function(data){
+						window.location = "<%= bid_items_path %>" + "/" + data.attributes.value
+					}
+				});
+			});
+		</script>
+			<input id="bid_item_search" type="text" width="300px">
 		</div>
 		<div id="link_bar">
 			<%= render :partial => "layouts/nav_bar" %>

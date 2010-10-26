@@ -51,22 +51,13 @@ h1 {
 #top_bar_contents #search_bar {
 	position: relative;
 	float: left;
-	padding-left: 20px;
-	padding-right: 10px;
-	padding-top: 5px;
+	min-width: 300px;
+	max-width: 300px;
 }
 #top_bar_contents #logo {
 	padding: 5px;
 	position: relative;
 	float: left;
-}
-#top_bar_contents input {
-	background-color: #777;
-	border-color: black;
-	border-width: 1px;
-	padding: 6px;
-	width: 220px;
-	border-radius: 4px;
 }
 #top_bar ul {
 	margin: 0px;
@@ -92,8 +83,6 @@ h1 {
 	text-decoration: none;
 	color: #FFF;
 }
-
-
 
 #content {
 	background: rgba(255, 233, 195, 0.898438);	
