@@ -1,12 +1,9 @@
 class TagsController < ApplicationController
-  def update
-  end
-
   def create
     @tag = Tag.new
     @tag.title = params[:title]
     bid_item = BidItem.find(params[:bid_item_id])
-    @tag.bid_items << bid_item
+    @tag.add_bid_item(bid_item)
     authorize! :create, @tag
     if @tag.save
       redirect_to(bid_item, :notice => 'Tag was successfully created.')
@@ -21,5 +18,4 @@ class TagsController < ApplicationController
     @tag.destroy
     redirect_to(root_url, :notice=>"Comment deleted")
   end
-
 end

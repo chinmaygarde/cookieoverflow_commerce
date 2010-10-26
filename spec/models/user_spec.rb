@@ -23,6 +23,15 @@ describe User do
     u.role?("bar").should == false
     
     u.role?("baz").should == true
-    u.role?("bang").should == true    
+    u.role?("bang").should == true
+  end
+  
+  it "should be able to become a seller" do
+    u = Factory(:user)
+    r = Factory(:role, :title => "seller")
+    u.roles.delete_all
+    u.become_seller
+    u.roles.count.should == 1
+    u.role?("seller").should be_true
   end
 end

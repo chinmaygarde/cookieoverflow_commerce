@@ -13,52 +13,39 @@ describe BidItemCommentsController do
   before(:each) do
      request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
   end
+  
   describe "POST create" do
-    describe "with valid params" do
-      it "assigns a newly created bid_item_comment as @bid_item_comment" do
-        BidItemComment.stub(:new).with({'these' => 'params'}).and_return(mock_bid_item_comment(:save => true))
-        @bid_item_comment = mock_bid_item_comment
-        @bid_item_comment.should_receive(:user=)
-        @bid_item_comment.should_receive(:bid_item)
-        post :create, :bid_item_comment => {:these => 'params'}
-        #assigns[:bid_item_comment].should equal(mock_bid_item_comment)
-        #bid_item_url(mock_bid_item).should_not == nil
-        response.should redirect_to(bid_item_url(mock_bid_item))
-      end
+    it "creates new bid item comment with valid args" do
+      @bid_item_comment = mock_bid_item_comment(:save => true, :bid_item => mock_bid_item)
+      BidItemComment.stub(:new).with({'these' => 'params'}).and_return(@bid_item_comment)
+      @bid_item_comment.should_receive(:user=)
+      @bid_item_comment.should_receive(:bid_item)
+      ability = Ability.new(mock_user)
+      ability.can?(:create, mock_bid_item_comment).should be_true
+      post :create, :bid_item_comment => {:these => 'params'}
+      response.should redirect_to(bid_item_path(@bid_item_comment.bid_item))
+    end
+    it "creates new bid item comment with invalid args" do
+      @bid_item_comment = mock_bid_item_comment(:save => false, :bid_item => mock_bid_item)
+      BidItemComment.stub(:new).with({'these' => 'params'}).and_return(@bid_item_comment)
+      @bid_item_comment.should_receive(:user=)
+      @bid_item_comment.should_receive(:bid_item)
+      ability = Ability.new(mock_user)
+      ability.can?(:create, mock_bid_item_comment).should be_true
+      post :create, :bid_item_comment => {:these => 'params'}
+      response.should redirect_to(bid_item_path(@bid_item_comment.bid_item))
+    end
+  end
+  
+  describe "DELETE destroy" do
+    it "should delete bid item comment" do
+      @bid_item_comment = mock_bid_item_comment(:bid_item => mock_bid_item(:user => mock_user))
+      BidItemComment.stub(:find).and_return(@bid_item_comment)
+      ability = Ability.new(mock_user)
+      ability.can?(:destroy, mock_bid_item_comment).should be_true
+      @bid_item_comment.should_receive(:destroy)
+      delete :destroy
+      response.should redirect_to(root_url)
     end
   end
 end
-#      it "redirects to the created bid_item" do
-#        BidItem.stub(:new).and_return(mock_bid_item(:save => true))
-#        @bid_item = mock_bid_item
-#        @bid_item.should_receive(:user=)
-#        post :create, :bid_item => {}
-#        response.should redirect_to(bid_item_url(mock_bid_item))
-#      end
-#    end
-
-#    describe "with invalid params" do
-#      it "assigns a newly created but unsaved bid_item as @bid_item" do
-#        BidItem.stub(:new).with({'these' => 'params'}).and_return(mock_bid_item(:save => false))
-#        @bid_item = mock_bid_item
-#        @bid_item.should_receive(:user=)
-#        post :create, :bid_item => {:these => 'params'}
-#        assigns[:bid_item].should equal(mock_bid_item)
-#      end
-#
-#      it "re-renders the 'new' template" do
-#        BidItem.stub(:new).and_return(mock_bid_item(:save => false))
-#        @bid_item = mock_bid_item
-#        @bid_item.should_receive(:user=)
-#        post :create, :bid_item => {}
-#        response.should render_template('new')
-#      end
-#    end
-#
-#  end
-#
-#  describe "GET 'destroy'" do
-#    it "should be successful" do
-#      get 'destroy'
-#      response.should be_success
-#    end

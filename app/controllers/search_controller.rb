@@ -4,7 +4,7 @@ class SearchController < ApplicationController
     if !params[:q].nil? && params[:q].length > 2
       bid_items = BidItem.search("*#{params[:q]}*")
       bid_items.each do |item|
-        data << {:value => "#{item.id}", :name => "#{item.title}"}
+        data << {:value => "#{item.id}", :name => "#{item.title}"} if !item.nil?
       end
     end
     respond_to do |format|

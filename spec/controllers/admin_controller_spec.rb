@@ -21,4 +21,18 @@ describe AdminController do
     User.stub(:find).and_return(mock_user)
     post :change_user_permissions, {:user_id => 1, :roles => ["buyer", "seller"]}
   end
+  
+  it "should show the admin mail page for authenticated users" do
+    get :mail
+  end
+  
+  it "should be able to send mail" do
+    post :send_mail
+    response.should redirect_to(root_url)
+  end
+  
+  it "should be able to add the seller role to a buyer" do
+    post :become_seller
+    response.should redirect_to(bid_items_path)
+  end
 end
