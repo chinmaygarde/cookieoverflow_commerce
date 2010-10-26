@@ -27,6 +27,7 @@ describe AdminController do
   end
   
   it "should be able to send mail" do
+    Resque.stub(:enqueue)
     post :send_mail
     response.should redirect_to(root_url)
   end
