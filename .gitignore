@@ -15,3 +15,4 @@ db/*.sqlite3
 db/*.db
 coverage/*
 doc/*
+public/system/*
