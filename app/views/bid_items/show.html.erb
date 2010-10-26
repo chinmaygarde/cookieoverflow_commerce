@@ -1,13 +1,10 @@
 <p>
-  <b>Title:</b>
-  <%=h @bid_item.title %>
+<h3 align="center"><%=h @bid_item.title %></h3>
 </p>
 
 <p>
-  <b>Body:</b>
   <%=h @bid_item.body %>
 </p>
-
 <p>
   <% if can? :update, @bid_item %>
     <%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
@@ -17,12 +14,32 @@
   <% end %>  
   <%= link_to 'Back', bid_items_path %>
 </p>
+<hr />
+<p>
+  The starting price of the bid item: - $<%=h @bid_item.starting_price.to_f/100 %><br />
+<% if @bid_item.bids.count != 0 %>
+  The current bids are listed below<br />
+<% for bid in @bid_item.bids do %>
+  $<%=h bid.bid_amount %> by <%=h bid.user.email %><br />
+<% end %>
+<% end %>
+<% if can? :create, @bid %>
+ <% form_tag(:controller => :bids, :action => :create, :method => :post) do |f| %>
+  <p>
+    <%= text_field_tag  "bid_amount" %>
+  </p>
+    <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
+  <p>
+    <%= submit_tag 'Bid Now' %>
+  </p>
+ <% end %>
+<% end %>
+</p>
 <% if @bid_item.tags.count != 0 %>
 <hr />
 <b>
   Tags
-</b>
-<hr />
+</b><br />
 <% for tag in @bid_item.tags do %>
   <%=h tag.title %>&nbsp;
   <% end %>

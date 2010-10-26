@@ -1,15 +1,19 @@
-<h1>Editing bid_item</h1>
+<h1>Editing bid item</h1>
 
 <% form_for(@bid_item) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :title %><br />
+    <b><%= f.label :title %></b><br />
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :body %><br />
+    <b><%= f.label :body %></b><br />
     <%= f.text_area :body %>
+  </p>
+  <p>
+    <b><%= f.label :starting_price %></b><br />
+    <%= f.text_field :starting_price %>
   </p>
   <p>
     <%= f.submit 'Update' %>
