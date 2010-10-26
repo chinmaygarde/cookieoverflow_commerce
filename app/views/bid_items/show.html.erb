@@ -1,82 +1,88 @@
+<% content_for :left_column do %>
+	<div id="bid_section">
+		<p>Bidding Started at <span class="currency">$<%=h @bid_item.starting_price.to_f/100 %></span></p>
+		
+		<% if can? :create, @bid %>
+			<% form_tag(:controller => :bids, :action => :create, :method => :post) do |f| %>
+			<p>
+			  <%= text_field_tag  "bid_amount" %>
+			</p>
+			  <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
+			<p>
+			  <%= submit_tag 'Bid Now' %>
+			</p>
+			<% end %>
+		<% end %>
+		
+		<% if @bid_item.bids.count != 0 %>
+		  	<h3>Bidding History</h3>
+			<% @bid_item.bids.reverse.each_with_index do |bid, index| %>
+			<div class="bid_history_profile <%= (index%2 == 1) ? 'left' : 'right' %>">
+				<%= image_tag("#{gravatar(bid.user)}?s=40") %>
+				<span class="currency">$<%=h bid.bid_amount %></span><br /> by <i><%=h bid.user.email %></i>
+			</div>
+			<% end %>
+		<% else %>
+			<p>No one has bid on this item. Start now!</p>
+		<% end %>
+	</div>
+<% end %>
 
-<p>
-<h3 align="center"><%=h @bid_item.title %></h3>
-</p>
+<h2><%=h @bid_item.title %></h2>
+<div class="bid_item_profile_big">
+	<%=image_tag @bid_item.picture.url(:medium) %><br/>
+	<%=h @bid_item.body %>	
+</div>
+<div id="links">
+	<% if can? :update, @bid_item %>
+		<%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
+	<% end %>
+	<% if can? :destroy, @bid_item %>
+		<%= link_to "Delete", @bid_item, :method => :delete, :confirm => "Are you sure?" %> |
+	<% end %>
+	<%= link_to 'Back', bid_items_path %>	
+</div>
 
-<p>
-  <%=h @bid_item.body %>
-</p>
-<p>
-<%=image_tag @bid_item.picture.url %>
-</p>
-
-
-<p>
-  <% if can? :update, @bid_item %>
-    <%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
-  <% end %>
-  <% if can? :destroy, @bid_item %>
-    <%= link_to "Destroy", @bid_item, :method => :delete, :confirm => "Are you sure?" %> |
-  <% end %>  
-  <%= link_to 'Back', bid_items_path %>
-</p>
 <hr />
-<p>
-  The starting price of the bid item: => $<%=h @bid_item.starting_price.to_f/100 %><br />
-<% if @bid_item.bids.count != 0 %>
-  <b>The current bids are listed below</b><br />
-<% for bid in @bid_item.bids do %>
-  $<%=h bid.bid_amount %> by <i><%=h bid.user.email %></i><br />
-<% end %>
-<% end %>
-<% if can? :create, @bid %>
- <% form_tag(:controller => :bids, :action => :create, :method => :post) do |f| %>
-  <p>
-    <%= text_field_tag  "bid_amount" %>
-  </p>
-    <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
-  <p>
-    <%= submit_tag 'Bid Now' %>
-  </p>
- <% end %>
-<% end %>
-</p>
 <% if @bid_item.tags.count != 0 %>
-<hr />
-<b>
-  Tags
-</b><br />
-<% for tag in @bid_item.tags do %>
-  <%=h tag.title %>&nbsp;
-  <% end %>
+	Tags: 
+	<% for tag in @bid_item.tags do %>
+		<%=h tag.title %> | 
+	<% end %>
+<% else %>
+	<p>This listing has no tags...</p>
 <% end %>
-<hr />
-<p><b>Comments</b></p>
-<hr />
-<p>
-  <% for comment in @bid_item.bid_item_comments do %>
-<p>
-  <br><%= comment.user.email %> wrote</br>
-  <br><%=h comment.body %></br>
-</p>
-<br>
-  <% if can? :destroy, comment %>
-    <%= link_to "Destroy", comment, :method => :delete, :confirm => "Are you sure?" %> |
-  <% end %>
-</br>
-<hr />
-  <% end %>
-<p>
-  <% form_for(BidItemComment.new) do |f| %>
-  <p>
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
-  </p>
-  <%= f.hidden_field(:bid_item_id, :value => @bid_item.id)  %>
-  <p>
-    <%= f.submit 'Add a new comment' %>
-  </p>
-<% end %>
-</p>
-</p>
 
+<hr />
+<h3>Comments</h3>
+  <% for comment in @bid_item.bid_item_comments do %>
+	  <div class="comments_profile">
+		  <%= image_tag("#{gravatar(comment.user)}?s=30") %>
+		  <b><%= comment.user.email %> wrote</b><br/>
+		  <br />
+		  <%=h comment.body %><br />
+		  <br />
+		  <div class="links">
+			  <% if can? :destroy, comment %>
+			    <%= link_to "Delete", comment, :method => :delete, :confirm => "Are you sure?" %> |
+			  <% end %>	  	
+		  </div>
+	  </div>
+  <% end %>
+
+<% if can? :create, BidItemComment %>
+	<% form_for(BidItemComment.new) do |f| %>
+	    <%= f.label :body %><br />
+	    <%= f.text_area :body %>
+		<%= f.hidden_field(:bid_item_id, :value => @bid_item.id)  %>
+	    <%= f.submit 'Add a new comment' %>
+	<% end %>
+<% else %>
+	<p>You cannot add comments. Try logging in.</p>
+<% end %>
+
+
+
+<% content_for :right_column do %>
+	<h3>Other items by this seller</h3>
+<% end %>

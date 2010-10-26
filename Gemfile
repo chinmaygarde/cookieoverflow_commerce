@@ -5,7 +5,6 @@ gem "bundler"
 # Well, duh..
 gem "rails",				"2.3.8"
 
-
 # Authentication
 gem "devise",				"1.0.8"
 
@@ -20,6 +19,9 @@ gem "resque", 				"1.10.0"
 
 # Full text search
 gem "thinking-sphinx",		"1.3.11",	:require => "thinking_sphinx"
+
+# Attachments
+gem "paperclip", 			"2.3.4"
 
 group :development, :test do
 	# Database: Switch to mysql as soon as possible

@@ -14,12 +14,12 @@ h1 {
 	font-size: 18px;
 }
 #content input, textarea {
-	width:300px;
-	font-size:20px;
+	width:90%;
+	font-size:14px;
 	background-color: #bbb;
 	color: #000;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
 	padding:8px;
 }
 #top_bar {
@@ -117,4 +117,57 @@ h1 {
 	background: -webkit-gradient(linear, center top, center bottom, from(rgba(255, 255, 255, 0.8)), to(rgba(255, 255, 255, 0.6)));
 	padding: 15px;
 	border-radius: 8px;
+}
+
+.bid_history_profile {
+	background-color: #FFF;
+	margin: 8px;
+	padding: 8px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-style: solid;
+	border-color: rgba(255, 233, 195, 0.898438);
+}
+
+.comments_profile {
+	background-color: #FFF;
+	margin: 12px;
+	padding: 12px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-style: solid;
+	border-color: rgba(255, 233, 195, 0.898438);
+}
+
+.bid_item_profile_large {
+	min-height: 180px;
+	background-color: #FFF;
+	margin: 6px;
+	padding: 6px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-style: solid;
+	border-color: rgba(255, 233, 195, 0.898438);
+}
+.bid_item_profile_large img {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.left {
+	text-align: right;
+}
+.right {
+	text-align: left;
+}
+.left img {
+	float: left;
+	padding-right: 10px;
+}
+.right img {
+	float: right;
+	padding-left: 10px;
+}
+.currency {
+	font-size: 28px;
+	font-style: bold;
 }

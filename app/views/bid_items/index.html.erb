@@ -1,26 +1,19 @@
-<h1>Listing bid_items</h1>
+<h1>All Bid Items</h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Body</th>
-  </tr>
+<% @bid_items.each_with_index do |bid_item, index| %>
 
-<% @bid_items.each do |bid_item| %>
-  <tr>
-    <td><%=h bid_item.title %></td>
-    <td><%=h bid_item.body %></td>
-    <td><%=image_tag bid_item.picture.url%></td>
-
-
-    <td><%= link_to 'Show', bid_item %></td>
-    <td><%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %></td>
-    <td><%= (link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, bid_item %></td>
-  </tr>
+	<div class="bid_item_profile_large">
+	    <h2><%=h bid_item.title %></h2>
+		<%= link_to image_tag(bid_item.picture.url(:medium), :width => "140px", :style => "float: #{ (index%2 == 0) ? 'left' : 'right'}"), bid_item %>
+	    <%=h bid_item.body %>
+		<div class="links">
+			<%= link_to 'Show', bid_item %> | 
+		    <%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %> | 
+		    <%= (link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, bid_item %>
+		</div>
+	</div>
+    
 <% end %>
-</table>
-
-<br />
 
 <% if can? :create, BidItem %>
 	<%= link_to 'Add new bid item', new_bid_item_path %>

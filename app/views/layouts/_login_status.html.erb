@@ -1,6 +1,6 @@
 <ul>
 	<% if !current_user.nil? %>
-	  	<li><%= link_to "Logged in as #{current_user.email}.", edit_user_registration_path %></li>
+	  	<li><%= link_to(image_tag("#{gravatar(current_user)}?s=22", :style => "float:right; padding-left: 8px;"), edit_user_registration_path) %><%= link_to "Logged in as #{current_user.email}", edit_user_registration_path %></li>
 		<li><%= link_to "Logout", destroy_user_session_path %></li>
 	  <% else %>
 	    <li><%= link_to "Login", new_user_session_path %></li>
