@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   
   has_many :bid_items
   has_many :bid_item_comments
+  has_many :bids
   has_and_belongs_to_many :roles
   
   after_create :add_default_roles

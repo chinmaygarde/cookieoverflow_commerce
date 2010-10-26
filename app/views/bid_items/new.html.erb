@@ -19,8 +19,11 @@
 
 
   <p>
+    <%= f.label :starting_price %><br />
+    <%= f.text_field :starting_price %>
+  </p>
+  <p>
     <%= f.submit 'Create' %>
   </p>
 <% end %>
-
 <%= link_to 'Back', bid_items_path %>
