@@ -1,20 +1,40 @@
-<h1>Editing bid_item</h1>
+<h1>Editing bid item</h1>
 
 <% form_for(@bid_item) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :title %><br />
+    <b><%= f.label :title %></b><br />
     <%= f.text_field :title %>
   </p>
   <p>
-    <%= f.label :body %><br />
+    <b><%= f.label :body %></b><br />
     <%= f.text_area :body %>
+  </p>
+
+    <p>
+    <%= f.label :picture, "You can submit a picture here" %><br />
+    <%= f.file_field :picture %>
+  </p>
+
+  <p>
+    <b><%= f.label :starting_price %></b><br />
+    <%= f.text_field :starting_price %>
   </p>
   <p>
     <%= f.submit 'Update' %>
   </p>
 <% end %>
+
+ <% form_tag(:controller => :tags, :action => :create, :method => :post) do |f| %>
+  <p>
+    <%= text_field_tag  "title" %>
+  </p>
+    <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
+  <p>
+    <%= submit_tag 'Add Tag' %>
+  </p>
+ <% end %>
 
 <%= link_to 'Show', @bid_item %> |
 <%= link_to 'Back', bid_items_path %>

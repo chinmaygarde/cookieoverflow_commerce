@@ -15,6 +15,10 @@ class Ability
       can [:update, :destroy], BidItemComment do |comment|
         comment.user == user
       end
+      can :create, Bid
+      can :destroy, Bid do |singlebid|
+        singlebid.user == user
+      end
     end
     if user.role?("seller")
       can :create, BidItem
@@ -27,6 +31,9 @@ class Ability
       end
       can :destroy, BidItemComment do |comment|
         comment.bid_item.user == user
+      end
+      can [:create, :update, :destroy], Tag do |tag_name|
+        tag_name.bid_item.user == user
       end
     end    
   end

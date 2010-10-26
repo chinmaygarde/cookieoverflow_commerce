@@ -17,9 +17,9 @@ describe "/bid_items/show.html.erb" do
     )
   end
 
-  it "renders attributes in <p>" do
-    render
-    response.should have_text(/value\ for\ title/)
-    response.should have_text(/value\ for\ body/)
-  end
+  #it "renders attributes in <p>" do
+  #  render
+  #  response.should have_text(/value\ for\ title/)
+  #  response.should have_text(/value\ for\ body/)
+  #end
 end
