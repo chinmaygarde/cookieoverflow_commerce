@@ -2,7 +2,7 @@
 	<div id="bid_section">
 		<p>Bidding Started at <span class="currency">$<%=h @bid_item.starting_price.to_f/100 %></span></p>
 		
-		<% if can? :create, @bid %>
+		<% if can? :create, Bid %>
 			<% form_tag(:controller => :bids, :action => :create, :method => :post) do |f| %>
 			<p>
 			  <%= text_field_tag  "bid_amount" %>
@@ -45,7 +45,7 @@
 
 <hr />
 <% if @bid_item.tags.count != 0 %>
-	Tags: 
+	<b>Tags: </b>
 	<% for tag in @bid_item.tags do %>
 		<%=h tag.title %> | 
 	<% end %>
@@ -85,4 +85,11 @@
 
 <% content_for :right_column do %>
 	<h3>Other items by this seller</h3>
+	<!-- Only for demo -->
+	<% @bid_item.user.bid_items.each_with_index do |item, index| %>
+		<div class="bid_item_profile_small <%= (index%2 == 1) ? 'left' : 'right' %>">
+			<%= link_to(image_tag(item.picture.url(:thumb)), item) %>
+			<h3><%= item.title %></h3>
+		</div>
+	<% end %>
 <% end %>

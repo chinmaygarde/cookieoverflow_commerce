@@ -56,5 +56,8 @@
 	</div>
 
 </div>
+<% if current_user && current_user.role?("seller") %>
+	<img style="position: fixed; top: 0; left: 0; border: 0;" src="/images/seller.png" alt="Fork me on GitHub">
+<% end %>
 </body>
 </html>

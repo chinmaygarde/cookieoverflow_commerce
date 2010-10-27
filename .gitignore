@@ -15,9 +15,7 @@ db/*.sqlite3
 db/*.db
 coverage/*
 doc/*
-<<<<<<< HEAD
 *.rdb
 db/sphinx
-=======
 public/system/*
->>>>>>> 527466e83f6422b41e4582df5f902f62afa000c9
+.swp
