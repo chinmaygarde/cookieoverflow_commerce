@@ -1,26 +1,26 @@
 <% content_for :left_column do %>
 	<div id="bid_section">
-		<p>Bidding Started at <span class="currency">$<%=h @bid_item.starting_price.to_f/100 %></span></p>
+		<p>Bidding Started at <span class="currency">$<%=h @bid_item.starting_price %></span></p>
 		
 		<% if can? :create, Bid %>
-			<% form_tag(:controller => :bids, :action => :create, :method => :post) do |f| %>
-			<p>
-			  <%= text_field_tag  "bid_amount" %>
-			</p>
-			  <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
-			<p>
-			  <%= submit_tag 'Bid Now' %>
-			</p>
+			<% form_for(@bid_item.bids.build) do |f| %>
+				<p>
+				  <%= f.text_field(:bid_amount, :value => @bid_item.minimum_bidding_price) %>
+				</p>
+				<%= hidden_field_tag :bid_item_id, @bid_item.id %>
+				<p>
+				  <%= f.submit('Bid Now') %>
+				</p>
 			<% end %>
 		<% end %>
 		
 		<% if @bid_item.bids.count != 0 %>
 		  	<h3>Bidding History</h3>
-			<% @bid_item.bids.reverse.each_with_index do |bid, index| %>
-			<div class="bid_history_profile <%= (index%2 == 1) ? 'left' : 'right' %>">
-				<%= image_tag("#{gravatar(bid.user)}?s=40") %>
-				<span class="currency">$<%=h bid.bid_amount %></span><br /> by <i><%=h bid.user.email %></i>
-			</div>
+			<% @bid_item.latest_bids.each do |bid| %>
+				<div class="bid_history_profile <%= cycle('left', 'right') %>">
+					<%= image_tag("#{gravatar(bid.user)}?s=40") %>
+					<span class="currency">$<%=h bid.bid_amount %></span><br /> by <i><%=h bid.user.email if !bid.user.nil? %></i>
+				</div>
 			<% end %>
 		<% else %>
 			<p>No one has bid on this item. Start now!</p>

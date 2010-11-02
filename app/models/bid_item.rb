@@ -18,4 +18,21 @@ class BidItem < ActiveRecord::Base
     indexes title
     indexes body
   end
+  
+  def highest_bid
+    bids.find(:first, :order => "bid_amount desc")
+  end
+  
+  def latest_bids
+    bids.find(:all, :order => "bid_amount desc", :limit => 10)
+  end
+  
+  def minimum_bidding_price
+    if highest_bid.nil?
+      starting_price
+    else
+      highest_bid.bid_amount
+    end
+  end
+  
 end

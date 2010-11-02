@@ -17,6 +17,7 @@ class BidItemsController < ApplicationController
   def show
     @bid_item = BidItem.find(params[:id])
     authorize! :read, @bid_item
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @bid_item }
