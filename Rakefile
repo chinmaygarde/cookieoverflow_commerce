@@ -9,4 +9,5 @@ require 'rake/rdoctask'
 
 require 'tasks/rails'
 require 'resque/tasks'
+require 'resque_scheduler/tasks'
 require 'thinking_sphinx/tasks'

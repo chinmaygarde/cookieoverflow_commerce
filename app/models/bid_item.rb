@@ -16,6 +16,8 @@ class BidItem < ActiveRecord::Base
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_many :bids
   has_and_belongs_to_many :tags
+  
+  after_create :setup_bid_finishing_tasks
 
   define_index do
     indexes title
@@ -42,4 +44,8 @@ class BidItem < ActiveRecord::Base
     DateTime.now < end_time
   end
   
+  def setup_bid_finishing_tasks
+    Resque.enqueue_at(end_time, MailWinner, id)
+    Resque.enqueue_at(end_time, MailSeller, id)
+  end
 end

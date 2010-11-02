@@ -17,6 +17,9 @@ gem "mysql",				"2.8.1"
 # Background Jobs
 gem "resque", 				"1.10.0"
 
+# Delayed and recurring jobs
+gem "resque-scheduler", 	"1.9.6"
+
 # Full text search
 gem "thinking-sphinx",		"1.3.11",	:require => "thinking_sphinx"
 
