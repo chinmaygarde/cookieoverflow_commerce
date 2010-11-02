@@ -2,17 +2,26 @@
 	<div id="bid_section">
 		<p>Bidding Started at <span class="currency">$<%=h @bid_item.starting_price %></span></p>
 		
-		<% if can? :create, Bid %>
-			<% form_for(@bid_item.bids.build) do |f| %>
-				<p>
-				  <%= f.text_field(:bid_amount, :value => @bid_item.minimum_bidding_price) %>
-				</p>
-				<%= hidden_field_tag :bid_item_id, @bid_item.id %>
-				<p>
-				  <%= f.submit('Bid Now') %>
-				</p>
+		<% if @bid_item.is_open? %>
+			<h4>Hurry, this bid will end <%= distance_of_time_in_words(Time.now, @bid_item.end_time) %> from now.</h4>
+			<% if can?(:create, Bid) %>
+				<% form_for(@bid_item.bids.build) do |f| %>
+					<p>
+					  <%= f.text_field(:bid_amount, :value => @bid_item.minimum_bidding_price) %>
+					</p>
+					<%= hidden_field_tag :bid_item_id, @bid_item.id %>
+					<p>
+					  <%= f.submit('Bid Now') %>
+					</p>
+				<% end %>
+			<% else %>
+				<p>Sign up to start bidding.</p>
 			<% end %>
+	    <% else %>
+			<h3>Sorry, bidding for this item ended <%= time_ago_in_words(@bid_item.end_time) %> ago.</h3>
 		<% end %>
+		
+		
 		
 		<% if @bid_item.bids.count != 0 %>
 		  	<h3>Bidding History</h3>

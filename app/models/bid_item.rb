@@ -1,12 +1,15 @@
 class BidItem < ActiveRecord::Base
 
-  attr_accessible :title, :body, :picture, :starting_price
+  attr_accessible :title, :body, :picture, :starting_price, :end_time, :next_bid_delta
   validates_presence_of :title, :user_id, :starting_price
   validates_numericality_of :starting_price, :integer_only => true, :gt => 0
 
   validates_attachment_size :picture, :less_than => 2.megabytes
   validates_attachment_content_type :picture, :content_type => ['image/jpeg', 'image/png']
-
+  
+  validates_presence_of :end_time
+  validates_presence_of :next_bid_delta
+  
   belongs_to :user
   has_many :bid_item_comments
   
@@ -31,8 +34,12 @@ class BidItem < ActiveRecord::Base
     if highest_bid.nil?
       starting_price
     else
-      highest_bid.bid_amount
+      highest_bid.bid_amount + next_bid_delta
     end
+  end
+  
+  def is_open?
+    DateTime.now < end_time
   end
   
 end
