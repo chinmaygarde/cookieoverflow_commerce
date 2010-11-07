@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 describe Bid do
+  
   before(:each) do
-    @valid_attributes = {
-      :user_id => 1,
-      :bid_item_id => 1,
-      :bid_amount => 1
-    }
+    Resque.stub(:enqueue_at)
   end
-
-  it "should create a new instance given valid attributes" do
-    Bid.create!(@valid_attributes)
+  
+  it "should be able to retrieve the most recent bids overall" do
+    10.times do |i|
+      Factory(:bid)
+    end
+    Bid.most_recent(10).count.should == 10
   end
 end

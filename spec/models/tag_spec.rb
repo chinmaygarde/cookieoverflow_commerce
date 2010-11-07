@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Tag do
+  
+  before(:each) do
+    Resque.stub(:enqueue_at)
+  end
+  
   it "should be able to associate bid items with itself" do
     tag = Factory.create(:tag)
     initial_count = tag.bid_items.count

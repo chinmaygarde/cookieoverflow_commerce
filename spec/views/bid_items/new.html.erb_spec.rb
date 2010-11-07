@@ -7,7 +7,9 @@ describe "/bid_items/new.html.erb" do
     assigns[:bid_item] = stub_model(BidItem,
       :new_record? => true,
       :title => "value for title",
-      :body => "value for body"
+      :body => "value for body",
+      :next_bid_delta => 10,
+      :end_time => 100.days.from_now
     )
   end
 

@@ -13,4 +13,8 @@ class Bid < ActiveRecord::Base
   def bid_is_not_placed_on_a_closed_item
     errors.add(:bid_amount, "is not valid since the bidding has already closed.") if !bid_item.is_open?
   end
+  
+  def self.most_recent(number=15)
+    find(:all, :order => "bid_amount desc", :limit => number)
+  end
 end

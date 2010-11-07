@@ -18,7 +18,6 @@ describe BidsController do
     it "should create a new bid with valid arguments" do
       Bid.stub(:new).and_return(mock_bid({:bid_item => mock_bid_item(:user => mock_user), :save => true}))
       @bid = mock_bid
-      @bid.should_receive(:bid_amount=)
       BidItem.stub(:find).and_return(mock_bid_item)
       @bid.should_receive(:bid_item=)
       @bid.should_receive(:user=)
@@ -32,7 +31,6 @@ describe BidsController do
     it "should create a new bid with invalid arguments" do
       Bid.stub(:new).and_return(mock_bid({:bid_item => mock_bid_item(:user => mock_user), :save => false}))
       @bid = mock_bid
-      @bid.should_receive(:bid_amount=)
       BidItem.stub(:find).and_return(mock_bid_item)
       @bid.should_receive(:bid_item=)
       @bid.should_receive(:user=)

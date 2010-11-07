@@ -39,7 +39,7 @@
 
 <h2><%=h @bid_item.title %></h2>
 <div class="bid_item_profile_big">
-	<%=image_tag @bid_item.picture.url(:medium) %><br/>
+	<%=image_tag @bid_item.picture.url(:medium), :style => "float: right; width: 250px;" %><br/>
 	<%=h @bid_item.body %>	
 </div>
 <div id="links">

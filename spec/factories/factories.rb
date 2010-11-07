@@ -1,29 +1,36 @@
-Factory.define :bid_item do |b|
-  b.title           "iPhone 4G"
-  b.body            "The coolest phone ever"
-  b.starting_price  0
-  b.user { |u| u.association(:user) }
+Factory.define :bid_item do |f|
+  f.title           "iPhone 4G"
+  f.body            "The coolest phone ever"
+  f.starting_price  0
+  f.end_time        10.days.from_now
+  f.next_bid_delta  20
+  f.user { |u| u.association(:user) }
 end
 
-Factory.define :user do |u|
-  u.sequence :email do |n|
+Factory.define :user do |f|
+  f.sequence :email do |n|
     "user#{n}@example.com"
   end
-  u.password  "secret"
-  u.roles { |u| [u.association(:role)] }
+  f.password  "secret"
+  f.roles { |u| [u.association(:role)] }
 end
 
-Factory.define :role do |r|
-  r.title "buyer"
+Factory.define :role do |f|
+  f.title "buyer"
 end
 
-Factory.define :tag do |t|
-  t.title "tag"
-  t.bid_items { |b| [b.association(:bid_item)] }
+Factory.define :tag do |f|
+  f.title "tag"
+  f.bid_items { |b| [b.association(:bid_item)] }
 end
 
-Factory.define :bid_item_comment do |c|
-  c.body  "Cool post"
-  c.user { |u| u.association(:user) }
-  c.bid_item { |b| b.association(:bid_item) }
+Factory.define :bid_item_comment do |f|
+  f.body  "Cool post"
+  f.user { |u| u.association(:user) }
+  f.bid_item { |b| b.association(:bid_item) }
+end
+
+Factory.define :bid do |f|
+  f.bid_amount    100
+  f.bid_item      { |b| b.association(:bid_item) }
 end

@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe Ability do
+  
+  before(:each) do
+    Resque.stub(:enqueue_at)
+  end
+  
   it "should allow a user to edit or delete a bid_item_comment if he owns the comment" do
     user = Factory(:user)
     user.roles << Factory(:role, :title => "buyer")

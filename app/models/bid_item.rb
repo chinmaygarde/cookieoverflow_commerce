@@ -28,8 +28,8 @@ class BidItem < ActiveRecord::Base
     bids.find(:first, :order => "bid_amount desc")
   end
   
-  def latest_bids
-    bids.find(:all, :order => "bid_amount desc", :limit => 10)
+  def latest_bids(number=10)
+    bids.find(:all, :order => "bid_amount desc", :limit => number)
   end
   
   def minimum_bidding_price
