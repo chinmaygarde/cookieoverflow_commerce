@@ -1,31 +1,14 @@
 <% content_for :left_column do %>
 	<h1>Recent Bids</h1>
 	<% if !Bid.most_recent.blank? %>
-	  <% for bid in Bid.most_recent %>
-	    <div class="bid_history_profile <%= cycle('left', 'right') %>">
-			<%= image_tag("#{gravatar(bid.user)}?s=40") %>
-			<span class="currency">$<%=h bid.bid_amount %></span><br /> by <i><%=h bid.user.email if !bid.user.nil? %></i> on<br />
-			<%= link_to("#{bid.bid_item.title}", bid.bid_item) if !bid.bid_item.nil? %>
-		</div>
-	  <% end %>
-	<% end %>	
+		<%= render :partial => "bids/bid_list", :locals => {:bids => Bid.most_recent, :show_bid_item => true} %>
+	<% end %>
 <% end %>
 
 <h1>All Bid Items</h1>
 
 <% @bid_items.each_with_index do |bid_item, index| %>
-
-	<div class="bid_item_profile_large">
-	    <h2><%=h bid_item.title %></h2>
-		<%= link_to image_tag(bid_item.picture.url(:medium), :width => "140px", :style => "float: #{ (index%2 == 0) ? 'left' : 'right'}"), bid_item %>
-	    <%=h bid_item.body %>
-		<div class="links">
-			<%= link_to 'Show', bid_item %> | 
-		    <%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %> | 
-		    <%= (link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, bid_item %>
-		</div>
-	</div>
-    
+    <%= render :partial => "bid_item_profile_large", :locals => { :bid_item => bid_item, :index => index } %>
 <% end %>
 
 <% if can? :create, BidItem %>

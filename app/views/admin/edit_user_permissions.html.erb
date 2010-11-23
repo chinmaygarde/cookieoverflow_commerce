@@ -1,6 +1,20 @@
-<h1>Change Permissions For: <%= @user.email %> </h1>
+<h1>Manage: <%= @user.email %> </h1>
 <% form_tag(:action => "change_user_permissions", :method => :post) do %>
   	<%= select_tag "roles", options_for_select(Role.all.collect { |r| r.title }, @user.roles.collect { |r| r.title }), :multiple => true %><br />
 	<%= hidden_field_tag "user_id", @user.id %>
 	<%= submit_tag "Change Roles" %>
 <% end -%>
+
+<% if @user.recent_auctions.count == 0 %>
+	<h3>This user has not posted any items for auction</h3>
+<% else %>
+  <h3>Recent auctions by this user</h3>
+  <% @user.recent_auctions.each_with_index do |bid_item, index| %>
+	<%= render :partial => "bid_items/bid_item_profile_large", :locals => { :bid_item => bid_item, :index => index } %>
+  <% end %>		
+<% end %>
+
+<% content_for :right_column do %>
+	<h3>Recent Bids</h3>
+	<%= render :partial => "bids/bid_list", :locals => {:bids => @user.recent_bids, :show_bid_item => true} %>
+<% end %>

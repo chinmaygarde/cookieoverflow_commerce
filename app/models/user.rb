@@ -36,4 +36,12 @@ class User < ActiveRecord::Base
       roles << r if !r.nil?
     end
   end
+  
+  def recent_auctions(count=10)
+    bid_items.find(:all, :limit => count, :order => "created_at desc")
+  end
+  
+  def recent_bids(count=10)
+    bids.find(:all, :limit => count, :order => "created_at desc")
+  end
 end

@@ -14,6 +14,16 @@
 					  <%= f.submit('Bid Now') %>
 					</p>
 				<% end %>
+				<h3>The minimum bid is $<%= @bid_item.minimum_bidding_price %></h3>
+				<h3>Rules:</h3>
+				<ul>
+					<li>
+						Bidding Starts At $<%= @bid_item.starting_price %>
+					</li>
+					<li>
+						Minimum Bid Difference $<%= @bid_item.next_bid_delta %>
+					</li>
+				</ul>
 			<% else %>
 				<p>Sign up to start bidding.</p>
 			<% end %>
@@ -21,16 +31,9 @@
 			<h3>Sorry, bidding for this item ended <%= time_ago_in_words(@bid_item.end_time) %> ago.</h3>
 		<% end %>
 		
-		
-		
 		<% if @bid_item.bids.count != 0 %>
 		  	<h3>Bidding History</h3>
-			<% @bid_item.latest_bids.each do |bid| %>
-				<div class="bid_history_profile <%= cycle('left', 'right') %>">
-					<%= image_tag("#{gravatar(bid.user)}?s=40") %>
-					<span class="currency">$<%=h bid.bid_amount %></span><br /> by <i><%=h bid.user.email if !bid.user.nil? %></i>
-				</div>
-			<% end %>
+			<%= render :partial => "bids/bid_list", :locals => {:bids => @bid_item.latest_bids, :show_bid_item => false} %>
 		<% else %>
 			<p>No one has bid on this item. Start now!</p>
 		<% end %>
