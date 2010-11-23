@@ -17,7 +17,7 @@ class Bid < ActiveRecord::Base
   end
   
   def self.most_recent(number=15)
-    find(:all, :order => "bid_amount desc", :limit => number)
+    find(:all, :order => "created_at desc", :limit => number)
   end
   
   def notify_old_higest_bidder_on_bid_item

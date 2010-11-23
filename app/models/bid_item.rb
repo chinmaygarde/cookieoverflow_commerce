@@ -18,6 +18,10 @@ class BidItem < ActiveRecord::Base
   has_and_belongs_to_many :tags
   
   after_create :setup_bid_finishing_tasks
+  
+  after_save :notify_bidders_of_modifications
+
+  before_destroy :notify_bidders_of_deletion
 
   define_index do
     indexes title
@@ -47,5 +51,14 @@ class BidItem < ActiveRecord::Base
   def setup_bid_finishing_tasks
     Resque.enqueue_at(end_time, MailWinner, id)
     Resque.enqueue_at(end_time, MailSeller, id)
+  end
+  
+  def notify_bidders_of_modifications
+    Resque.enqueue(NotifyBiddersOfModifications, id, "modified")
+  end
+  
+  def notify_bidders_of_deletion
+    mails = bids.each.collect { |b| b.user.email }.uniq
+    Resque.enqueue(NotifyBiddersOfDeletion, "#{title}: #{body}", mails)
   end
 end

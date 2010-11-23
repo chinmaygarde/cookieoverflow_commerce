@@ -31,4 +31,21 @@ class UserMailer < ActionMailer::Base
     content_type "text/html"
     reply_to    "osprey@buzzyand.me"
   end
+  def bid_item_modification_message(bid_item, message="modified")
+    mails = bid_item.bids.each.collect { |b| b.user.email }.uniq
+    recipients  mails
+    subject     "The item you bid on, '#{bid_item.title}', has been #{message}"
+    body        :bid_item => bid_item
+    sent_on     Time.now
+    content_type "text/html"
+    reply_to    "osprey@buzzyand.me"
+  end
+  def bid_item_deletion_message(description, mails)
+    recipients  mails
+    subject     "An item you bid on has been deleted"
+    body        :description => description
+    sent_on     Time.now
+    content_type "text/html"
+    reply_to    "osprey@buzzyand.me"
+  end
 end
