@@ -23,4 +23,12 @@ class UserMailer < ActionMailer::Base
     content_type "text/html"
     reply_to    "osprey@buzzyand.me"
   end
+  def buyer_no_longer_highest_bidder_message(bid_item, buyer)
+    recipients  buyer.email
+    subject     "Someone outbid you on '#{bid_item.title}'"
+    body        :bid_item => bid_item, :buyer => buyer
+    sent_on     Time.now
+    content_type "text/html"
+    reply_to    "osprey@buzzyand.me"
+  end
 end

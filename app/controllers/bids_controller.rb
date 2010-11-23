@@ -1,4 +1,4 @@
-class BidsController < ApplicationController
+class BidsController < ApplicationController  
   def create
     @bid = Bid.new(params[:bid])
     @bid.bid_item = BidItem.find(params[:bid_item_id])

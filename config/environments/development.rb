@@ -25,7 +25,7 @@ config.action_mailer.smtp_settings = {
   :domain         => 'buzzyand.me',
   :authentication => :plain,
   :user_name      => 'osprey@buzzyand.me',
-  :password       => 'CookieOverflow'
+  :password       => 'CookieOverflowOverflow'
 }
 
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }

@@ -1,0 +1,6 @@
+<h1>Someone has outbid you on <b><%= @bid_item.title %></b></h1>
+<p>Please login to Osprey to place a revised bid</p>
+<p>Hurry, bidding on this item closes in <%= distance_of_time_in_words(Time.now, @bid_item.end_time) %></p>
+<hr />
+<h3>Item Description</h3>
+<p><%= @bid_item.body %></p>
