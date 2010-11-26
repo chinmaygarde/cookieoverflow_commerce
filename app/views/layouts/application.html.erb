@@ -31,6 +31,14 @@
 						window.location = "<%= bid_items_path %>" + "/" + data.attributes.value
 					}
 				});
+				
+				var bar = $("#notification_bar");
+				if (bar.html() != "") {
+					bar.fadeIn();
+					setTimeout(function() {
+						bar.fadeOut();
+					}, 5000);
+				};
 			});
 		</script>
 			<input id="bid_item_search" type="text">
@@ -51,7 +59,6 @@
 		<%= yield :right_column %>
 	</div>
 	<div id="main_content" class="section">
-		<p style="color: green"><%= notice %></p>
 		<%= yield %>
 	</div>
 
@@ -59,5 +66,6 @@
 <% if current_user && current_user.role?("seller") %>
 	<img style="position: fixed; top: 0; left: 0; border: 0;" src="/images/seller.png" alt="Fork me on GitHub">
 <% end %>
+<div id="notification_bar" style="display:none;"><%= notice %></div>
 </body>
 </html>
