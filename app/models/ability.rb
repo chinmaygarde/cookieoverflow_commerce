@@ -6,6 +6,9 @@ class Ability
   def initialize(user)
     user ||= User.new
     can :read, :all
+    can [:update, :destroy], Message do |message|
+      message.to_user == user
+    end
     if user.role?("admin")
       can :manage, :all
     end

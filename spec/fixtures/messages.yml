@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  from_user: 1
+  to_user: 1
+  message: MyText
+  unread: false
+
+two:
+  from_user: 1
+  to_user: 1
+  message: MyText
+  unread: false

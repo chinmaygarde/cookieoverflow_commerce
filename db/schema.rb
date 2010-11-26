@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101102125718) do
+ActiveRecord::Schema.define(:version => 20101123071224) do
 
   create_table "bid_item_comments", :force => true do |t|
     t.integer  "user_id"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(:version => 20101102125718) do
     t.integer  "user_id"
     t.integer  "bid_item_id"
     t.integer  "bid_amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "from_user"
+    t.integer  "to_user"
+    t.text     "message"
+    t.boolean  "unread",     :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

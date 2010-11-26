@@ -159,6 +159,16 @@ h1 {
 	border-style: solid;
 	border-color: rgba(255, 233, 195, 0.898438);
 }
+.message_profile {
+	min-height: 60px;
+	background-color: #FFF;
+	margin: 6px;
+	padding: 18px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-style: solid;
+	border-color: rgba(255, 233, 195, 0.898438);
+}
 .bid_item_profile_large img {
 	padding-left: 15px;
 	padding-right: 15px;

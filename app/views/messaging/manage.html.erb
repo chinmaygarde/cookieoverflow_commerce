@@ -1,0 +1,46 @@
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function(){
+		$("#user_search_submit").click(function(){
+			$.post("<%= search_users_path %>", {q : $('#user_search_input').val()}, function(data) {
+				var html = "";
+				for (var i=0; i < data.length; i++) {
+					html += "<option value='" + data[i].value + "'>" + data[i].name + "</option>"
+				};
+				$("#to_user").html(html);
+			});
+			$("#to_user").html("");
+			$("#user_search_input").val("");
+		});
+	});
+</script>
+<% content_for :left_column do %>
+	<h3>Sent Messages</h3>
+	<% @user.sent_messages.each do |m| %>
+		<%= render :partial => "messaging/message_profile", :locals => {:message => m, :incoming => false} %>
+	<% end %>
+<% end %>
+<div id="message_compose">
+	<h3>Search User</h3>
+	<input type="text" placeholder="User..." id="user_search_input" >
+	<input type="submit" value="Search User" id="user_search_submit"><br /><br />
+	<% form_tag(message_create_path, :method => :post) do %>
+		<h3>Users</h3>
+		To: <select name="to_user" id="to_user"></select><br />
+		Message: <br />
+		<input type="hidden" name="from_user" value="<%= current_user.id.to_s %>" id="from_user">
+		<textarea id="message" name="message"></textarea>
+		<input type="submit" value="Send">
+	<% end %>
+</div>
+
+<h3>Unread Messages</h3>
+<% @user.unread_messages.each do |m| %>
+	<%= render :partial => "messaging/message_profile", :locals => {:message => m, :incoming => true} %>
+<% end %>
+
+<% content_for :right_column do %>
+	<h3>Read Messages</h3>
+	<% @user.read_messages.each do |m| %>
+		<%= render :partial => "messaging/message_profile", :locals => {:message => m, :incoming => false} %>
+	<% end %>
+<% end %>

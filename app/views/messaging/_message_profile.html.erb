@@ -1,0 +1,10 @@
+<div class="message_profile">
+	<% user = (!!incoming) ? message.from_user : message.to_user %>
+	<%= image_tag "#{gravatar(user.email)}?s=45" %> <b><%= user.email %></b><br />
+	<b>said...</b>
+	<p><%= message.message %></p>
+	<i><%= time_ago_in_words(message.created_at) %> ago...</i><br />
+	<% if message.unread && can?(:update, message) %>
+		<%= link_to("Mark as read", read_message_path(:id => message.id)) %>
+	<% end %>
+</div>

@@ -7,6 +7,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bids, :only=> [:create, :destroy]
 
   map.search_bid_items 'search/bid_item', :controller => "search", :action => "bid_item"
+  map.search_users 'search/user', :controller => "search", :action => "user"
+  map.inbox 'inbox', :controller => "messaging", :action => "manage"
+  map.message_create 'messaging/create', :controller => "messaging", :action => "create"
+  map.read_message 'messaging/read/:id', :controller => "messaging", :action => "read"
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

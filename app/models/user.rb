@@ -12,6 +12,13 @@ class User < ActiveRecord::Base
   has_many :bids
   has_and_belongs_to_many :roles
   
+  has_many :messages_received, :class_name => "Message", :foreign_key => "to_user"
+  has_many :messages_sent, :class_name => "Message", :foreign_key => "from_user"
+  
+  define_index do
+    indexes email
+  end
+  
   after_create :add_default_roles
   
   def role?(role)
@@ -43,5 +50,17 @@ class User < ActiveRecord::Base
   
   def recent_bids(count=10)
     bids.find(:all, :limit => count, :order => "created_at desc")
+  end
+  
+  def unread_messages(count=25)
+    messages_received.find(:all, :limit => count, :order => "created_at desc", :conditions => { :unread => true})
+  end
+  
+  def read_messages(count=25)
+    messages_received.find(:all, :limit => count, :order => "created_at desc", :conditions => { :unread => false})
+  end
+  
+  def sent_messages(count=25)
+    messages_sent.find(:all, :limit => count, :order => "created_at desc")
   end
 end
