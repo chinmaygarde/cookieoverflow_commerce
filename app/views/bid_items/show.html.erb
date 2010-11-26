@@ -47,10 +47,10 @@
 </div>
 <div id="links">
 	<% if can? :update, @bid_item %>
-		<%= link_to 'Edit', edit_bid_item_path(@bid_item) %> |
+		<%= link_to 'Edit', edit_bid_item_path(@bid_item) %>&nbsp;&nbsp;
 	<% end %>
 	<% if can? :destroy, @bid_item %>
-		<%= link_to "Delete", @bid_item, :method => :delete, :confirm => "Are you sure?" %> |
+		<%= link_to "Delete", @bid_item, :method => :delete, :confirm => "Are you sure?" %>&nbsp;&nbsp;
 	<% end %>
 	<%= link_to 'Back', bid_items_path %>	
 </div>
@@ -59,7 +59,7 @@
 <% if @bid_item.tags.count != 0 %>
 	<b>Tags: </b>
 	<% for tag in @bid_item.tags do %>
-		<%=h tag.title %> | 
+		<%=h tag.title %>&nbsp;&nbsp;
 	<% end %>
 <% else %>
 	<p>This listing has no tags...</p>
@@ -76,7 +76,7 @@
 		  <br />
 		  <div class="links">
 			  <% if can? :destroy, comment %>
-			    <%= link_to "Delete", comment, :method => :delete, :confirm => "Are you sure?" %> |
+			    <%= link_to "Delete", comment, :method => :delete, :confirm => "Are you sure?" %>&nbsp;&nbsp;
 			  <% end %>	  	
 		  </div>
 	  </div>

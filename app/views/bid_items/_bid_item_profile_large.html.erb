@@ -3,8 +3,8 @@
 	<%= link_to image_tag(bid_item.picture.url(:medium), :width => "140px", :style => "float: #{ (index%2 == 0) ? 'left' : 'right'}"), bid_item %>
     <%=h truncate(bid_item.body) %>
 	<div class="links">
-		<%= link_to 'Show', bid_item %> | 
-	    <%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %> | 
+		<%= link_to 'Show', bid_item %>&nbsp;&nbsp;
+	    <%= link_to 'Edit', edit_bid_item_path(bid_item) if can? :update, bid_item %>&nbsp;&nbsp;
 	    <%= (link_to 'Destroy', bid_item, :confirm => 'Are you sure?', :method => :delete) if can? :destroy, bid_item %>
 	</div>
 </div>
