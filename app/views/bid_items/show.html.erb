@@ -20,8 +20,34 @@
 	    <% else %>
 			<h3>Sorry, bidding for this item ended <%= time_ago_in_words(@bid_item.end_time) %> ago.</h3>
 		<% end %>
-		
-		
+
+      <% if @bid_item.is_open? != true %>
+      <% if current_user && @bid_item.highest_bid.nil? == false && (current_user.id == @bid_item.user.id ||current_user.id == @bid_iem.highest_bid.user.id) %>
+          <h3> Rate the bid </h3>
+                <% form_tag(:controller => :rating, :action => :thumbsup, :method => :post) do  %>
+                        <p>
+                          <% if current_user.id == @bid_item.user.id %>
+                                <%= hidden_field_tag("user_id", @bid_item.highest_bid.user.id)  %>
+                          <% else %>
+                                <%= hidden_field_tag("user_id", @bid_item.user.id)  %>
+                          <% end %>
+                           <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
+				<%= submit_tag "Like" %>
+                        </p>
+		<% end %>
+                <% form_tag(:controller => :rating, :action => :thumbsdown, :method => :post) do  %>
+                        <p>
+                          <% if current_user.id == @bid_item.user.id %>
+                                <%= hidden_field_tag("user_id", @bid_item.highest_bid.user.id)  %>
+                          <% else %>
+                                <%= hidden_field_tag("user_id", @bid_item.user.id)  %>
+                          <% end %>
+                           <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
+                            <%= submit_tag "Dislike" %>
+                        </p>
+		<% end %>
+      <% end %>
+      <% end %>
 		
 		<% if @bid_item.bids.count != 0 %>
 		  	<h3>Bidding History</h3>

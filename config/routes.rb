@@ -6,6 +6,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :only=> [:create, :update, :destroy]
   map.resources :bids, :only=> [:create, :destroy]
 
+  map.thumbsup 'rating/thumbsup', :controller => "rating", :action => "thumbsup"
+  map.thumbsdown 'rating/thumbsdown', :controller => "rating", :action => "thumbsdown"
   map.search_bid_items 'search/bid_item', :controller => "search", :action => "bid_item"
   # The priority is based upon order of creation: first created -> highest priority.
 
