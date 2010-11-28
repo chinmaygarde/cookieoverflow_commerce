@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :bid_items
   has_many :bid_item_comments
   has_many :bids
+  has_many :auto_inc_requests
   has_and_belongs_to_many :roles
   
   has_many :messages_received, :class_name => "Message", :foreign_key => "to_user"

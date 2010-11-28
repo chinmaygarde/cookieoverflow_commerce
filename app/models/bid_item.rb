@@ -12,6 +12,7 @@ class BidItem < ActiveRecord::Base
   
   belongs_to :user
   has_many :bid_item_comments
+  has_many :auto_inc_requests
   
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_many :bids

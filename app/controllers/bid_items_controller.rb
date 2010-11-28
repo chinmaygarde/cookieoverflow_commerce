@@ -16,6 +16,7 @@ class BidItemsController < ApplicationController
   # GET /bid_items/1.xml
   def show
     @bid_item = BidItem.find(params[:id])
+    @auto_inc_req = AutoIncRequest.find_by_user_id_and_bid_item_id(current_user.id, @bid_item.id)
     authorize! :read, @bid_item
     
     respond_to do |format|

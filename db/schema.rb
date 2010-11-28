@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101123071224) do
+ActiveRecord::Schema.define(:version => 20101128062021) do
+
+  create_table "auto_inc_requests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "bid_item_id"
+    t.integer  "maximum_amount"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "bid_item_comments", :force => true do |t|
     t.integer  "user_id"

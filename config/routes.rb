@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bid_item_comments, :only=> [:create, :destroy]
   map.resources :tags, :only=> [:create, :update, :destroy]
   map.resources :bids, :only=> [:create, :destroy]
+  map.resources :auto_inc_requests, :only=> [:create, :destroy]
 
   map.search_bid_items 'search/bid_item', :controller => "search", :action => "bid_item"
   map.search_users 'search/user', :controller => "search", :action => "user"
