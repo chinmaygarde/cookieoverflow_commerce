@@ -17,4 +17,10 @@ describe BidItem do
     # item.latest_bids(5).count.should == 5
     item.latest_bids(5).should_not be_nil
   end
+  
+  it "should be able to notify bidders of deletion" do
+    Resque.stub(:enqueue_at)
+    item = Factory(:bid_item)
+    item.notify_bidders_of_deletion
+  end
 end

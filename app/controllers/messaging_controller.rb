@@ -9,7 +9,7 @@ class MessagingController < ApplicationController
     message = Message.new
     message.from_user = User.find(params[:from_user]) if params[:from_user]
     message.to_user = User.find(params[:to_user]) if params[:to_user]
-    message.message = params[:message]
+    message.message = params[:message] if !params[:message].nil?
     if message.save
       redirect_to(inbox_path, :notice => "Message was sent")
     else

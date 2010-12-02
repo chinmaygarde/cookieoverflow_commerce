@@ -24,4 +24,12 @@ describe Ability do
     ability = Ability.new(user)
     ability.can?(:update, comment).should be_true
   end
+  
+  it "should be able to update or destroy a message if the user is its owner" do
+    user = Factory(:user)
+    m = Factory(:message, :to_user => user)
+    ability = Ability.new(user)
+    ability.can?(:update, m).should be_true
+    ability.can?(:destroy, m).should be_true
+  end
 end

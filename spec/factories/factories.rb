@@ -34,3 +34,16 @@ Factory.define :bid do |f|
   f.bid_amount    100
   f.bid_item      { |b| b.association(:bid_item) }
 end
+
+Factory.define :message do |f|
+  f.unread        true
+  f.from_user     { |u| u.association(:user) }
+  f.to_user       { |u| u.association(:user) }
+  f.message       "Foo"
+end
+
+Factory.define :auto_inc_request do |f|
+  f.user          { |u| u.association(:user) }
+  f.bid_item      { |u| u.association(:bid_item) }
+  f.maximum_amount 100
+end
