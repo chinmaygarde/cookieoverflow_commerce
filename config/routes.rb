@@ -7,6 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bids, :only=> [:create, :destroy]
   map.resources :auto_inc_requests, :only=> [:create, :destroy]
 
+  map.thumbsup 'rating/thumbsup', :controller => "rating", :action => "thumbsup"
+  map.thumbsdown 'rating/thumbsdown', :controller => "rating", :action => "thumbsdown"
   map.search_bid_items 'search/bid_item', :controller => "search", :action => "bid_item"
   map.search_users 'search/user', :controller => "search", :action => "user"
   map.inbox 'inbox', :controller => "messaging", :action => "manage"

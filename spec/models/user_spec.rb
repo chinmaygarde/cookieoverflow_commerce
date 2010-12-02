@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe User do
+  before(:each) do
+    Resque.stub(:enqueue_at)
+    Resque.stub(:enqueue)
+  end
   it "should be able to check if it is in a role" do
     u = Factory(:user)
     u.roles << Factory(:role, :title => "foo")

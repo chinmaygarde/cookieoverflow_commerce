@@ -4,6 +4,7 @@ describe Tag do
   
   before(:each) do
     Resque.stub(:enqueue_at)
+    Resque.stub(:enqueue)
   end
   
   it "should be able to associate bid items with itself" do

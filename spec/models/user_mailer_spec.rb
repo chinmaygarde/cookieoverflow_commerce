@@ -4,6 +4,7 @@ describe UserMailer do
   
   before(:each) do
     Resque.stub(:enqueue_at)
+    Resque.stub(:enqueue)
     ActionMailer::Base.delivery_method = :test  
     ActionMailer::Base.perform_deliveries = true  
     ActionMailer::Base.deliveries = []
