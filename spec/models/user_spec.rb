@@ -35,7 +35,7 @@ describe User do
     r = Factory(:role, :title => "seller")
     u.roles.delete_all
     u.become_seller
-    u.roles.count.should == 1
+    u.roles.size.should == 1
     u.role?("seller").should be_true
   end
   

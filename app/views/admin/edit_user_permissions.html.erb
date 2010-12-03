@@ -5,7 +5,7 @@
 	<%= submit_tag "Change Roles" %>
 <% end -%>
 
-<% if @user.recent_auctions.count == 0 %>
+<% if @user.recent_auctions.size == 0 %>
 	<h3>This user has not posted any items for auction</h3>
 <% else %>
   <h3>Recent auctions by this user</h3>

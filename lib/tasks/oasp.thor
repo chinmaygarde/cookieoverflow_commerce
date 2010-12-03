@@ -10,10 +10,10 @@ class OASP < Thor
     # Check ruby version
     say "Checking Ruby version", :yellow
     ruby = run('ruby -v')
-    if ruby =~ /1.8.6/ || ruby =~ /1.8.7/
+    if ruby =~ /1.8.7/
       say "You have the recommended version of ruby", :green
     else
-      say "You don't have the recommended version of ruby (1.8.6 or 1.8.7)", :red
+      say "You don't have the recommended version of ruby (1.8.7)", :red
       go = false
     end  
     
@@ -67,6 +67,7 @@ class OASP < Thor
       say '-----------------------------------------', :green
       say 'You are ready to start the application. Please run the following commands: \n', :green
       say 'rake db:migrate', :yellow
+      say 'rake db:seed (For admin account | email: admin@admin.com | password: password)'
       say 'redis-server', :yellow
       say 'QUEUE=* COUNT=5 rake environment resque:workers', :yellow
       say 'rake resque:scheduler', :yellow

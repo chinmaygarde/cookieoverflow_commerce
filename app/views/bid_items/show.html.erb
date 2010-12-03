@@ -58,7 +58,7 @@
       <% end %>
       <% end %>
 		
-		<% if @bid_item.bids.count != 0 %>
+		<% if @bid_item.bids.size != 0 %>
 		  	<h3>Bidding History</h3>
 			<%= render :partial => "bids/bid_list", :locals => {:bids => @bid_item.latest_bids, :show_bid_item => false} %>
 		<% else %>
@@ -83,7 +83,7 @@
 </div>
 
 <hr />
-<% if @bid_item.tags.count != 0 %>
+<% if @bid_item.tags.size != 0 %>
 	<b>Tags: </b>
 	<% for tag in @bid_item.tags do %>
 		<%=h tag.title %>&nbsp;&nbsp;
