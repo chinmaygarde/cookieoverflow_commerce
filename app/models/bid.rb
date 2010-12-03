@@ -23,7 +23,7 @@ class Bid < ActiveRecord::Base
   
   def notify_old_higest_bidder_on_bid_item
     bids = bid_item.bids.find(:all, :order => "bid_amount desc", :limit => 2)
-    if bids.count == 2
+    if bids.size == 2
       Resque.enqueue(NotifyPreviousHighestBidder, bid_item.id, bids.last.user.id) if (!bids.nil? && !bids.last.user.nil?)
     end
   end

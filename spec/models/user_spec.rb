@@ -44,7 +44,7 @@ describe User do
     10.times do
       Factory(:bid_item, :user => u)
     end
-    u.recent_auctions(3).count.should == 3
+    u.recent_auctions(3).size.should == 3
   end
   
   it "should get recent bids for user" do
@@ -52,7 +52,7 @@ describe User do
     10.times do
       Factory(:bid, :user => u)
     end
-    u.recent_bids(3).count.should == 3
+    u.recent_bids(3).size.should == 3
   end
   
   it "should get unread messages for user" do
@@ -61,7 +61,7 @@ describe User do
       10.times do
         Factory(:message, :to_user => u, :from_user => u2, :unread => true)
       end
-      u.unread_messages(25).count.should == 10
+      u.unread_messages(25).size.should == 10
     end
   
   it "should get read messages for user" do
@@ -70,7 +70,7 @@ describe User do
     7.times do
       Factory(:message, :to_user => u, :from_user => u2, :unread => false)
     end
-    u.read_messages(25).count.should == 7
+    u.read_messages(25).size.should == 7
   end
   
   it "should get sent messages for user" do
@@ -79,6 +79,6 @@ describe User do
     7.times do
       Factory(:message, :to_user => u, :from_user => u2, :unread => false)
     end
-    u2.sent_messages(25).count.should == 7
+    u2.sent_messages(25).size.should == 7
   end
 end

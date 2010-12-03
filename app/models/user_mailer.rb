@@ -32,7 +32,11 @@ class UserMailer < ActionMailer::Base
     reply_to    "osprey@buzzyand.me"
   end
   def bid_item_modification_message(bid_item, message="modified")
-    mails = bid_item.bids.each.collect { |b| b.user.email }.uniq
+    mails = []
+    bid_item.bids.each do |b|
+      mails << b.user.email
+    end
+    mails = mails.uniq
     recipients  mails
     subject     "The item you bid on, '#{bid_item.title}', has been #{message}"
     body        :bid_item => bid_item
