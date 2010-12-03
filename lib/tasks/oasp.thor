@@ -65,9 +65,9 @@ class OASP < Thor
       say '-----------------------------------------', :green
       say '-------------All Checks Passed-----------', :green
       say '-----------------------------------------', :green
-      say 'You are ready to start the application. Please run the following commands: \n', :green
+      say 'You are ready to start the application. Please run the following commands:\n', :green
       say 'rake db:migrate', :yellow
-      say 'rake db:seed (For admin account | email: admin@admin.com | password: password)'
+      say 'rake db:seed (For admin account | email: admin@admin.com | password: password)', :yellow
       say 'redis-server', :yellow
       say 'QUEUE=* COUNT=5 rake environment resque:workers', :yellow
       say 'rake resque:scheduler', :yellow
