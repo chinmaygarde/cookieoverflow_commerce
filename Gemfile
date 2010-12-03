@@ -42,4 +42,7 @@ group :development, :test do
 	
 	# Test Coverage Reporting
 	gem "rcov",				"0.9.9"
+	
+	# Rake Replacement
+	gem "thor",       "0.14.2"
 end
