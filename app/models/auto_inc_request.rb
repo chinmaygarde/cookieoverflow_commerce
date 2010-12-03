@@ -10,7 +10,7 @@ class AutoIncRequest < ActiveRecord::Base
   after_create :place_first_bid_if_not_highest
   
   def place_first_bid_if_not_highest
-    if bid_item.highest_bid.user != user
+    if !bid_item.highest_bid.nil? && bid_item.highest_bid.user != user
       Bid.create(:user => user, :bid_item => bid_item, :bid_amount => bid_item.minimum_bidding_price)
     end
   end

@@ -11,15 +11,23 @@ describe Bid do
     10.times do |i|
       Factory(:bid)
     end
-    # CC has gone bonkers
-    # Bid.most_recent(10).count.should == 10
-    Bid.most_recent(10).should_not be_nil
+    Bid.most_recent(10).size.should == 10
   end
   
-  #it "should be able to automatically place a new bid from the queue" do
-  #  bid_item = Factory(:bid_item, :starting_price => 10, :next_bid_delta => 1, :user => Factory(:user, :email => "foo2@gmail.com"))
-  #  Factory(:auto_inc_request, :user => Factory(:user, :email => "foo1@gmail.com"), :bid_item => bid_item, :maximum_amount => 1000)
-  #  bid_item.bid.bid_next_automatically
-  #  bid_item.highest_bid.user.email.should == u.email
-  #end
+  it "should be able to automatically place a new bid from the queue" do
+    user1 = Factory(:user, :email => "foo@bar.com")
+    user2 = Factory(:user, :email => "baz@bar.com")
+    
+    bid_item = Factory(:bid_item, :starting_price => 100)
+    
+    Factory(:bid, :bid_item => bid_item, :bid_amount => 200, :user => user1)
+    
+    req = Factory(:auto_inc_request, :user => user2, :bid_item => bid_item, :maximum_amount => 2000)
+    bid_item.highest_bid.user.should == user2
+    
+    bid_item.stub(:auto_inc_requests).and_return([req])
+    
+    Factory(:bid, :bid_item => bid_item, :user => user1, :bid_amount => 500)
+    bid_item.highest_bid.user.should == user2    
+  end
 end
