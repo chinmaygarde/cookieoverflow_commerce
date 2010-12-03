@@ -66,12 +66,13 @@ class OASP < Thor
       say '-------------All Checks Passed-----------', :green
       say '-----------------------------------------', :green
       say 'You are ready to start the application. Please run the following commands: \n', :green
+      say 'rake db:migrate', :yellow
       say 'redis-server', :yellow
       say 'QUEUE=* COUNT=5 rake environment resque:workers', :yellow
       say 'rake resque:scheduler', :yellow
       say 'rake ts:rebuild', :yellow
       say 'rake ts:start', :yellow
-      say '(OPTIONS) resque-web -p 3001 config/initializers/load_resque.rb', :yellow
+      say '(OPTIONAL) resque-web -p 3001 config/initializers/load_resque.rb', :yellow
     else
       say '-----------------------------------------', :red
       say '-------------Some Checks Failed----------', :red
