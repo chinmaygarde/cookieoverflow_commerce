@@ -9,7 +9,7 @@
 		    <%= link_to "Delete", comment, :method => :delete, :confirm => "Are you sure?" %>&nbsp;&nbsp;
 		  <% end %>	  	
 	  </div>
-		<% if show_comment_item %>
+		<% if show_comment_item && !comment.bid_item.nil? %>
 			This comment was made on <%= link_to("#{comment.bid_item.title}", comment.bid_item, :style => "font-size: 12px") %>
 		<% end %>
   </div>
