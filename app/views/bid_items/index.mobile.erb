@@ -1,0 +1,5 @@
+<ul data-role="listview">
+	<% @bid_items.each_with_index do |bid_item, index| %>
+		<li><%= link_to(bid_item.title, bid_item) %></li>
+	<% end %>
+</ul>

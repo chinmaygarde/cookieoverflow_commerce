@@ -6,10 +6,6 @@ class BidItemsController < ApplicationController
   def index
     @bid_items = BidItem.all
     authorize! :read, @bid_items
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @bid_items }
-    end
   end
 
   # GET /bid_items/1
