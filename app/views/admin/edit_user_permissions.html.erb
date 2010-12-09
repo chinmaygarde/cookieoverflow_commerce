@@ -1,3 +1,9 @@
+<% content_for :left_column do %>
+	<h3>Recent Comments</h3>
+	<% @user.recent_comments(5).each do |comment| %>
+		<%= render :partial => "bid_item_comments/comment_profile_large", :locals => {:comment => comment, :show_comment_item => true} %>
+	<% end %>
+<% end %>
 <h1>Manage: <%= @user.email %> </h1>
 <% form_tag(:action => "change_user_permissions", :method => :post) do %>
   	<%= select_tag "roles", options_for_select(Role.all.collect { |r| r.title }, @user.roles.collect { |r| r.title }), :multiple => true %><br />
@@ -16,5 +22,7 @@
 
 <% content_for :right_column do %>
 	<h3>Recent Bids</h3>
-	<%= render :partial => "bids/bid_list", :locals => {:bids => @user.recent_bids, :show_bid_item => true} %>
+	<% @user.recent_bids(10).each do |bid| %>
+		<%= render :partial => "bids/bid_item_profile", :locals => {:bid => bid, :show_bid_item => true} %>
+	<% end %>
 <% end %>

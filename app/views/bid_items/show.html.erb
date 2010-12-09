@@ -1,4 +1,10 @@
 <% content_for :left_column do %>
+	<div id="top_bidder_section">
+		<% if !@bid_item.highest_bid.nil? %>
+			<h3>Current Highest Bidder</h3>
+		  	<%= render :partial => "bids/bid_item_profile", :locals => {:bid => @bid_item.highest_bid, :show_bid_item => false} %>
+		<% end %>
+	</div>
 	<div id="bid_section">
 		<p>Bidding Started at <span class="currency">$<%=h @bid_item.starting_price %></span></p>
 		
@@ -30,39 +36,13 @@
 	    <% else %>
 			<h3>Sorry, bidding for this item ended <%= time_ago_in_words(@bid_item.end_time) %> ago.</h3>
 		<% end %>
-      <% if @bid_item.is_open? != true %>
-      <% if current_user && @bid_item.highest_bid.nil? == false && (current_user.id == @bid_item.user.id ||current_user.id == @bid_iem.highest_bid.user.id) %>
-          <h3> Rate the bid </h3>
-                <% form_tag(:controller => :rating, :action => :thumbsup, :method => :post) do  %>
-                        <p>
-                          <% if current_user.id == @bid_item.user.id %>
-                                <%= hidden_field_tag("user_id", @bid_item.highest_bid.user.id)  %>
-                          <% else %>
-                                <%= hidden_field_tag("user_id", @bid_item.user.id)  %>
-                          <% end %>
-                           <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
-				<%= submit_tag "Like" %>
-                        </p>
-		<% end %>
-                <% form_tag(:controller => :rating, :action => :thumbsdown, :method => :post) do  %>
-                        <p>
-                          <% if current_user.id == @bid_item.user.id %>
-                                <%= hidden_field_tag("user_id", @bid_item.highest_bid.user.id)  %>
-                          <% else %>
-                                <%= hidden_field_tag("user_id", @bid_item.user.id)  %>
-                          <% end %>
-                           <%= hidden_field_tag("bid_item_id", @bid_item.id)  %>
-                            <%= submit_tag "Dislike" %>
-                        </p>
-		<% end %>
-      <% end %>
-      <% end %>
-		
 		<% if @bid_item.bids.size != 0 %>
 		  	<h3>Bidding History</h3>
-			<%= render :partial => "bids/bid_list", :locals => {:bids => @bid_item.latest_bids, :show_bid_item => false} %>
+			<% @bid_item.latest_bids.each do |bid| %>
+				<%= render :partial => "bids/bid_item_profile", :locals => {:bid => bid, :show_bid_item => false} %>
+			<% end %>
 		<% else %>
-			<p>No one has bid on this item. Start now!</p>
+			<p>No one has bid on this item</p>
 		<% end %>
 	</div>
 <% end %>
@@ -71,6 +51,9 @@
 <div class="bid_item_profile_big">
 	<%=image_tag @bid_item.picture.url(:medium), :style => "float: right; width: 250px;" %><br/>
 	<%=h @bid_item.body %>	
+</div>
+<div class="comments_profile">
+	This item was added for auction by <%= @bid_item.user.email %> <%= render :partial => "users/karma_manager", :locals => {:user => @bid_item.user} %>
 </div>
 <div id="links">
 	<% if can? :update, @bid_item %>
@@ -94,19 +77,9 @@
 
 <hr />
 <h3>Comments</h3>
+	
   <% for comment in @bid_item.bid_item_comments do %>
-	  <div class="comments_profile">
-		  <%= image_tag("#{gravatar(comment.user)}?s=30") %>
-		  <b><%= comment.user.email %> wrote</b><br/>
-		  <br />
-		  <%=h comment.body %><br />
-		  <br />
-		  <div class="links">
-			  <% if can? :destroy, comment %>
-			    <%= link_to "Delete", comment, :method => :delete, :confirm => "Are you sure?" %>&nbsp;&nbsp;
-			  <% end %>	  	
-		  </div>
-	  </div>
+	  <%= render :partial => "bid_item_comments/comment_profile_large", :locals => {:comment => comment, :show_comment_item => false} %>
   <% end %>
 
 <% if can? :create, BidItemComment %>
@@ -137,9 +110,6 @@
 	<% end %>
 	<h3>Other items by this seller</h3>
 	<% @bid_item.user.bid_items.each_with_index do |item, index| %>
-		<div class="bid_item_profile_small <%= (index%2 == 1) ? 'left' : 'right' %>">
-			<%= link_to(image_tag(item.picture.url(:thumb)), item) %>
-			<h3><%= item.title %></h3>
-		</div>
+		<%= render :partial => "bid_item_profile_small", :locals => {:item => item, :position => (index % 2 == 1) ? 'left' : 'right'} %>
 	<% end %>
 <% end %>

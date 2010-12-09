@@ -1,0 +1,5 @@
+(+<span class="upcount_span_<%= user.id %>" style="color: green"><%= user.thumbsup %></span>
+<%= image_tag('thumbs-up.png', :width => "20px", :height => "20px", :onclick => "upvote(#{user.id})") %>
+ , -<span class="downcount_span_<%= user.id %>" style="color: red"><%= user.thumbsdown %></span>
+<%= image_tag('thumbs-down.png', :width => "20px", :height => "20px", :onclick => "downvote(#{user.id})") %>
+)

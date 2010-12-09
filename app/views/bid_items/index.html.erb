@@ -1,7 +1,9 @@
 <% content_for :left_column do %>
 	<h1>Recent Bids</h1>
 	<% if !Bid.most_recent.blank? %>
-		<%= render :partial => "bids/bid_list", :locals => {:bids => Bid.most_recent, :show_bid_item => true} %>
+		<% Bid.most_recent.each do |bid| %>
+			<%= render :partial => "bids/bid_item_profile", :locals => {:bid => bid, :show_bid_item => true} %>
+		<% end %>
 	<% end %>
 <% end %>
 
@@ -18,6 +20,17 @@
 	<% if current_user %>
 		<% form_tag(:action => "become_seller", :controller => "admin", :method => :post) do |f| %>
 			<%= submit_tag "Become a seller" %>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% content_for :right_column do %>
+	<h1>Hot items</h1>
+	<% if !Bid.most_recent.blank? %>
+		<% for item in Bid.most_recent %>
+			<% if !item.bid_item.nil? %>
+		  		<%= render :partial => "bid_item_profile_small", :locals => {:item => item.bid_item, :position => cycle('left', 'right')} %>  
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>

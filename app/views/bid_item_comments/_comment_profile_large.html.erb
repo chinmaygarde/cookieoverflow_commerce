@@ -1,0 +1,15 @@
+<div class="comments_profile">
+	  <%= image_tag("#{gravatar(comment.user)}?s=30") %>
+	  <b><%= comment.user.email %> <%= render :partial => 'users/karma_manager', :locals => {:user => comment.user } %> wrote</b><br/>
+	  <br />
+	  <%=h comment.body %><br />
+	  <br />
+	  <div class="links">
+		  <% if can? :destroy, comment %>
+		    <%= link_to "Delete", comment, :method => :delete, :confirm => "Are you sure?" %>&nbsp;&nbsp;
+		  <% end %>	  	
+	  </div>
+		<% if show_comment_item %>
+			This comment was made on <%= link_to("#{comment.bid_item.title}", comment.bid_item, :style => "font-size: 12px") %>
+		<% end %>
+  </div>

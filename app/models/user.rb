@@ -64,4 +64,8 @@ class User < ActiveRecord::Base
   def sent_messages(count=25)
     messages_sent.find(:all, :limit => count, :order => "created_at desc")
   end
+  
+  def recent_comments(count=25)
+    bid_item_comments.find(:all, :limit => count, :order => "created_at desc")
+  end
 end

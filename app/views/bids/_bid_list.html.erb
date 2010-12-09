@@ -1,9 +1,0 @@
-<% for bid in bids %>
-  <div class="bid_history_profile <%= cycle('left', 'right') %>">
-		<%= image_tag("#{gravatar(bid.user)}?s=40") %>
-		<span class="currency">$<%=h bid.bid_amount %></span><br /> by <i><%=h bid.user.email if !bid.user.nil? %></i>
-		<% if !!show_bid_item %>
-			 on<br /><%= link_to("#{bid.bid_item.title}", bid.bid_item) if !bid.bid_item.nil? %>
-		<% end %>
-	</div>
-<% end %>
