@@ -9,18 +9,28 @@
 </head> 
 <body> 
 
-<div data-role="page">
+<div data-role="page" data-theme="b">
 
 	<div data-role="header">
-		<h1><%= controller.controller_name.humanize %> | <%= controller.action_name.humanize %></h1>
+		<div data-role="navbar">
+				<ul>
+					<li><%= link_to("Home", root_path) %></li>
+					<% if current_user %>
+					<li><%= link_to("Logged in as #{current_user.email}", edit_user_registration_path) %></li>
+					<li><%= link_to("Logout", destroy_user_session_path) %></li>
+					<% else %>
+					<li><%= link_to("Register", new_user_registration_path) %></li>
+					<li><%= link_to("Login", new_user_session_path) %></li>					
+					<% end %>
+				</ul>
+			</div><!-- /navbar -->
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		<p><%= yield %></p>
+		<%= yield %>
 	</div><!-- /content -->
-
 	<div data-role="footer">
-		<h4>Full Site</h4>
+		<h4><%= link_to "To go to the full site, click this button and reload the page", root_url(:mobile => 0)%></h4>
 	</div><!-- /header -->
 </div><!-- /page -->
 

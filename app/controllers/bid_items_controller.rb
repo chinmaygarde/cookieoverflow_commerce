@@ -12,13 +12,12 @@ class BidItemsController < ApplicationController
   # GET /bid_items/1.xml
   def show
     @bid_item = BidItem.find(params[:id])
-    @auto_inc_req = AutoIncRequest.find_by_user_id_and_bid_item_id(current_user.id, @bid_item.id)
-    authorize! :read, @bid_item
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @bid_item }
+    if current_user
+      @auto_inc_req = AutoIncRequest.find_by_user_id_and_bid_item_id(current_user.id, @bid_item.id) if current_user
+    else
+      @auto_inc_req = nil
     end
+    authorize! :read, @bid_item
   end
 
   # GET /bid_items/new

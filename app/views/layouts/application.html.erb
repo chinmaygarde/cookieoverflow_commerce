@@ -60,8 +60,13 @@
 	</div>
 	<div id="main_content" class="section">
 		<%= yield %>
+		<hr />
+		<% if is_mobile? %>
+			<%= link_to "Full Site", :mobile => 0 %>
+		<% else %>
+			<%= link_to "Mobile Friendly Site", :mobile => 1 %>
+		<% end %>
 	</div>
-
 </div>
 <% if current_user && current_user.role?("seller") %>
 	<img style="position: fixed; top: 0; left: 0; border: 0;" src="/images/seller.png" alt="Fork me on GitHub">

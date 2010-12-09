@@ -101,11 +101,15 @@
 		<p>An automatic increment wizard has already been setup. The bid ceiling is <b>$<%= @auto_inc_req.maximum_amount %></b></p>
 		<p><%= link_to "Delete Automatic Bidder", @auto_inc_req, :method => :delete, :confirm => "Are you sure you want to remove the automatic bidder?" %></p>
 	<% else %>
-		<% form_for(AutoIncRequest.new) do |f| %>
-			<%= f.hidden_field :user_id, :value => current_user.id %>
-			<%= f.hidden_field :bid_item_id, :value => @bid_item.id %>
-			<%= f.text_field :maximum_amount, :value => @bid_item.minimum_bidding_price + 100 %>
-			<%= f.submit "Setup Automatic Bidder" %>
+		<% if current_user %>
+			<% form_for(AutoIncRequest.new) do |f| %>
+				<%= f.hidden_field :user_id, :value => current_user.id %>
+				<%= f.hidden_field :bid_item_id, :value => @bid_item.id %>
+				<%= f.text_field :maximum_amount, :value => @bid_item.minimum_bidding_price + 100 %>
+				<%= f.submit "Setup Automatic Bidder" %>
+			<% end %>
+		<% else %>
+			<h3>Login to setup the automatic bidder on this item.</h3>
 		<% end %>
 	<% end %>
 	<h3>Other items by this seller</h3>

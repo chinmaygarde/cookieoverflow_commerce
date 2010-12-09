@@ -1,0 +1,67 @@
+<div>
+	<h2><%=h @bid_item.title %></h2>
+	<p><%=image_tag @bid_item.picture.url(:medium), :style => "align: center" %><br/>
+	<%=h @bid_item.body %></p>
+	
+
+	<% if !@bid_item.highest_bid.nil? %>
+		<h3>Current Highest Bidder</h3>
+		<%= image_tag("#{gravatar(@bid_item.highest_bid.user)}?s=40") %>
+		<p>Bid Amount: $<%= @bid_item.highest_bid.bid_amount %> by <%= @bid_item.highest_bid.user.email %></p>
+	<% else %>
+		<h3>No one has bid on this item</h3>
+	<% end %>
+
+	<% if @bid_item.is_open? %>
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider">
+				Bidding Rules
+			</li>
+			<li>The minimum bid is now $<%= @bid_item.minimum_bidding_price %></li>
+			<li>Bidding Starts At $<%= @bid_item.starting_price %></li>
+			<li>Minimum Bid Difference $<%= @bid_item.next_bid_delta %></li>
+			<li>Hurry, this bid will end <%= distance_of_time_in_words(Time.now, @bid_item.end_time) %> from now.</li>
+		</ul>
+		<% if can?(:create, Bid) %>
+			<% form_for(@bid_item.bids.build) do |f| %>
+				<p>
+				  $ <%= f.text_field(:bid_amount, :value => @bid_item.minimum_bidding_price) %>
+				</p>
+				<%= hidden_field_tag :bid_item_id, @bid_item.id %>
+				<p>
+				  <%= f.submit('Bid Now') %>
+				</p>
+			<% end %>
+			
+		<% else %>
+			<p>Sign up to start bidding.</p>
+		<% end %>
+    <% else %>
+		<h3>Sorry, bidding for this item ended <%= time_ago_in_words(@bid_item.end_time) %> ago.</h3>
+	<% end %>
+	
+		<ul data-role="listview" data-inset="true">
+			<li data-role="list-divider">Comments</li>
+		<% for comment in @bid_item.bid_item_comments do %>
+		    <li>
+				<%= image_tag(gravatar(comment.user.email) + "?s=35", :style => "padding: 10px") %>
+				<div style="padding-left: 50px">
+					<h3><%= comment.user.email %> says...</h3>
+					<p><%= comment.body %></p>
+				</div>
+			</li>
+		<% end %>
+		</ul>
+		<% if can? :create, BidItemComment %>
+			<% form_for(BidItemComment.new) do |f| %>
+			    <%= f.label :body %><br />
+			    <%= f.text_area :body %>
+				<%= f.hidden_field(:bid_item_id, :value => @bid_item.id)  %>
+			    <%= f.submit 'Add a new comment' %>
+			<% end %>
+		<% else %>
+			<p>You cannot add comments. Try logging in.</p>
+		<% end %>		
+
+
+</div>
