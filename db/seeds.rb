@@ -20,8 +20,6 @@ def random_user
   User.find(rand(User.count) + 1)
 end
 
-b = u.bid_items.new(:title => "foo", :body => "Bar", :picture => File.new('/Users/Buzzy/Desktop/pic.jpg'), :end_time => 10.days.from_now, :next_bid_delta => 10, :starting_price => 10)
-
 seeds = YAML.load_file('public/seeds/seed_values.yml')
 
 seeds.each do |seed|
