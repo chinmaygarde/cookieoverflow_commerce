@@ -28,6 +28,13 @@ OaspCookieOverflow::Application.routes.draw do
   #map.read_message 'messaging/read/:id', :controller => "messaging", :action => "read"
   match 'messaging/read/:id' => 'messaging#read', :as => :read_message
   
+  match 'admin/select_user' => 'admin#select_user', :as => :admin_select_user
+  match 'admin/support' => 'admin#mail', :as => :admin_support
+  match 'admin/send_mail' => 'admin#send_mail', :as => :admin_mail
+  match 'admin/edit_user_permissions' => 'admin#edit_user_permissions', :as => :admin_edit_user
+  match 'admin/change_user_permissions' => 'admin#change_user_permissions', :as => :admin_edit_user_commit
+  
+  
   root :to => "bid_items#index"
   
   # The priority is based upon order of creation:

@@ -1,9 +1,9 @@
 <ul>
 	<li><%= link_to "Bid Items", bid_items_path %></li>
 	<% if can? :manage, :users %>
-	  <li><%= link_to "Admin", :controller => "admin", :action => "select_user" %></li>
+	  <li><%= link_to("Admin", admin_select_user_path) %></li>
 	<% end %>
 	<% if user_signed_in? %>
-	  <li><%= link_to "Support", :controller => "admin", :action => "mail" %></li>
+	  <li><%= link_to("Support", admin_support_path) %></li>
 	<% end %>
 </ul>

@@ -1,6 +1,6 @@
 <h1>Editing bid item</h1>
 
-<% form_for(@bid_item) do |f| %>
+<%= form_for(@bid_item) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -37,7 +37,7 @@
   </p>
 <% end %>
 
- <% form_tag(:controller => :tags, :action => :create, :method => :post) do %>
+ <%= form_tag(:controller => :tags, :action => :create, :method => :post) do %>
   <p>
     <%= text_field_tag  "title" %>
   </p>

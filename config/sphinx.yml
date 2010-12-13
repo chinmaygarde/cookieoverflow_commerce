@@ -1,3 +1,17 @@
 development:
+  port: 9312
+  searchd_binary_name:: "/usr/local/bin/searchd"
+  enable_star: true
+  min_infix_len: 3
+  
+test:
+  port: 9312
+  searchd_binary_name:: "/usr/local/bin/searchd"
+  enable_star: true
+  min_infix_len: 3
+  
+production:
+  port: 9312
+  searchd_binary_name:: "/usr/local/bin/searchd"
   enable_star: true
   min_infix_len: 3
