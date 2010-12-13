@@ -29,15 +29,15 @@ group :development, :test do
 	gem "sqlite3-ruby",				:require => "sqlite3"
 	
 	# RSpec
-	gem "rspec"
+	# gem "rspec"
 	gem "rspec-rails"
 	
 	# Factory Replacement
 	gem "factory_girl_rails"
 	
 	# Continuous Testing
-	gem "ZenTest"
+	# gem "ZenTest"
 	
 	# Test Coverage Reporting
-	gem "rcov"
+	# gem "rcov"
 end
