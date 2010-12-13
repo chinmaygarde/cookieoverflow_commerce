@@ -5,7 +5,7 @@
 	<% end %>
 <% end %>
 <h1>Manage: <%= @user.email %> </h1>
-<% form_tag(admin_edit_user_commit_path, :method => :post) do %>
+<%= form_tag(admin_edit_user_commit_path, :method => :post) do %>
   	<%= select_tag "roles", options_for_select(Role.all.collect { |r| r.title }, @user.roles.collect { |r| r.title }), :multiple => true %><br />
 	<%= hidden_field_tag "user_id", @user.id %>
 	<%= submit_tag "Change Roles" %>

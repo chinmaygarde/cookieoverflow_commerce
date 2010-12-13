@@ -23,7 +23,7 @@
 	<h3>Search User</h3>
 	<input type="text" placeholder="User..." id="user_search_input" >
 	<input type="submit" value="Search User" id="user_search_submit"><br /><br />
-	<% form_tag(message_create_path, :method => :post) do %>
+	<%= form_tag(message_create_path, :method => :post) do %>
 		<h3>Users</h3>
 		To: <select name="to_user" id="to_user"></select><br />
 		Message: <br />

@@ -11,7 +11,7 @@
 		<% if @bid_item.is_open? %>
 			<h4>Hurry, this bid will end <%= distance_of_time_in_words(Time.now, @bid_item.end_time) %> from now.</h4>
 			<% if can?(:create, Bid) %>
-				<% form_for(@bid_item.bids.build) do |f| %>
+				<%= form_for(@bid_item.bids.build) do |f| %>
 					<p>
 					  <%= f.text_field(:bid_amount, :value => @bid_item.minimum_bidding_price) %>
 					</p>
@@ -83,7 +83,7 @@
   <% end %>
 
 <% if can? :create, BidItemComment %>
-	<% form_for(BidItemComment.new) do |f| %>
+	<%= form_for(BidItemComment.new) do |f| %>
 	    <%= f.label :body %><br />
 	    <%= f.text_area :body %>
 		<%= f.hidden_field(:bid_item_id, :value => @bid_item.id)  %>
@@ -102,7 +102,7 @@
 		<p><%= link_to "Delete Automatic Bidder", @auto_inc_req, :method => :delete, :confirm => "Are you sure you want to remove the automatic bidder?" %></p>
 	<% else %>
 		<% if current_user %>
-			<% form_for(AutoIncRequest.new) do |f| %>
+			<%= form_for(AutoIncRequest.new) do |f| %>
 				<%= f.hidden_field :user_id, :value => current_user.id %>
 				<%= f.hidden_field :bid_item_id, :value => @bid_item.id %>
 				<%= f.text_field :maximum_amount, :value => @bid_item.minimum_bidding_price + 100 %>

@@ -1,4 +1,4 @@
-<% form_tag(admin_mail_path, :method => :post) do |f| %>
+<%= form_tag(admin_mail_path, :method => :post) do |f| %>
 	<%= text_area_tag :message %>
 	<%= submit_tag "Create Support Ticket" %>
 <% end %>
