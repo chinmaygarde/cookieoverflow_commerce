@@ -1,48 +1,46 @@
 source :gemcutter
 
-gem "bundler"
-
 # Well, duh..
-gem "rails",				"2.3.8"
+gem "rails",				"3.0.3"
 
 # Authentication
-gem "devise",				"1.0.8"
+gem "devise"
 
 # Role Management
-gem "cancan",       		"1.4.0"
+gem "cancan"
 
 # Databases
-gem "mysql",				"2.8.1"
+gem "mysql"
 
 # Background Jobs
-gem "resque", 				"1.10.0"
+gem "resque"
 
 # Delayed and recurring jobs
-gem "resque-scheduler", 	"1.9.6"
+gem "resque-scheduler"
 
 # Full text search
-gem "thinking-sphinx",		"1.3.11",	:require => "thinking_sphinx"
+gem "thinking-sphinx", :require => "thinking_sphinx"
 
 # Attachments
-gem "paperclip", 			"2.3.4"
+gem "paperclip"
 
 group :development, :test do
 	# Database: Switch to mysql as soon as possible
 	gem "sqlite3-ruby",				:require => "sqlite3"
 	
 	# RSpec
-	gem "rspec",			"1.3.0"
-	gem "rspec-rails",		"1.3.2"
+	gem "rspec"
+	gem "rspec-rails"
 	
 	# Factory Replacement
-	gem "factory_girl",		"1.3.2"
+	gem "factory_girl_rails"
 	
 	# Continuous Testing
-	gem "ZenTest",			"4.4.0"
+	gem "ZenTest"
 	
 	# Test Coverage Reporting
-	gem "rcov",				"0.9.9"
+	gem "rcov"
 	
 	# Rake Replacement
-	gem "thor",       "0.14.2"
+	gem "thor"
 end
