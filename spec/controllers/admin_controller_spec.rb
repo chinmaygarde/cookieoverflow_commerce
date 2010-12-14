@@ -8,7 +8,7 @@ describe AdminController do
      request.env['warden'] = mock(Warden, :authenticate => mock_user, :authenticate! => mock_user)
   end
   it "get a list of all users" do
-    User.stub(:find).with(:all).and_return([mock_user])
+    User.stub(:all).and_return([mock_user])
     get :select_user
     assigns[:users].should == [mock_user]
   end

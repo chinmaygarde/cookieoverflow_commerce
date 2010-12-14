@@ -11,27 +11,18 @@ describe SearchController do
 
   describe "GET 'bid_item'" do
       it "should be successful" do
-        @bid_item = mock_bid_item(:title => "Foo")
-        BidItem.stub(:search).and_return([@bid_item])
-
-        # Hack alert! We need to mock a Paperclip attachment
-        @bid_item_with_picture = mock_bid_item(:url => "something")
-        @bid_item.should_receive(:picture).and_return(@bid_item_with_picture)
-        @bid_item_with_gsub = mock_bid_item(:gsub => "something")
-        @bid_item_with_picture.should_receive(:url).and_return(@bid_item_with_gsub)
-        @bid_item_with_gsub.should_receive(:gsub)
-
-        get 'bid_item', :q => "Buzzy"
-        response.should be_success
+        BidItem.stub(:search).and_return([Factory(:bid_item, :title => "my item")])
+        get 'bid_item', :q => "Buzzy" , :format => :json
+        (response.body =~ /my item/).should be_true
       end
     end
 
   describe "GET 'user'" do
       it "should be successful" do
-        User.stub(:search).and_return([mock_user(:email => "foo@bar.com")])
-        
-        get 'user', :q => "Buzzy"
-        response.should be_success
+        User.stub(:search).and_return([Factory(:user, :email => "foobuzzy@bar.com"), Factory(:user, :email => "barbuzzy@bar.com")])
+        get 'user', :q => "Buzzy", :format => :json
+        (response.body =~ /foobuzzy@bar.com/).should be_true
+        (response.body =~ /barbuzzy@bar.com/).should be_true
       end
     end
 end

@@ -14,7 +14,7 @@ describe BidItemsController do
   describe "GET index" do
     
     it "assigns all bid_items as @bid_items" do
-      BidItem.stub(:find).with(:all).and_return([mock_bid_item])
+      BidItem.stub(:all).and_return([mock_bid_item])
       get :index
       assigns[:bid_items].should == [mock_bid_item]
     end

@@ -18,9 +18,10 @@ describe NotifyPreviousHighestBidder do
   end
 
   it "should enqueue the background job to notify the user that he is no longer the highest bidder" do
-    BidItem.stub(:find).and_return(mock_bid_item(:title => "something", :body => "else"))
-    User.stub(:find).with(1).and_return(mock_user)
-    UserMailer.stub(:deliver_buyer_no_longer_highest_bidder_message).with(mock_bid_item, mock_user)
+    user = mock_user(:email => "foo@bar.com")
+    bid_item = BidItem.stub(:find).and_return(mock_bid_item(:title => "something", :body => "else", :end_time => 10.days.from_now))
+    User.stub(:find).with(1).and_return(user)
+    UserMailer.stub(:deliver_buyer_no_longer_highest_bidder_message).with(bid_item, user)
     NotifyPreviousHighestBidder.perform(14, 1)
   end
 end
