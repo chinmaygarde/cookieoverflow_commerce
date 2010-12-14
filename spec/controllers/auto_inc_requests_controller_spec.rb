@@ -39,6 +39,6 @@ describe AutoIncRequestsController do
     auto_inc_request = mock_auto_inc_request(:bid_item => mock_bid_item)
     AutoIncRequest.stub(:find).and_return(auto_inc_request)
     auto_inc_request.stub(:destroy)
-    delete 'destroy'
+    delete 'destroy', :id => 1
   end
 end

@@ -44,7 +44,7 @@ describe BidItemCommentsController do
       ability = Ability.new(mock_user)
       ability.can?(:destroy, mock_bid_item_comment).should be_true
       @bid_item_comment.should_receive(:destroy)
-      delete :destroy
+      delete :destroy, :id => 1
       response.should redirect_to(root_url)
     end
   end

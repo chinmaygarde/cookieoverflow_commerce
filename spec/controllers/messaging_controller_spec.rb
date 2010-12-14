@@ -40,7 +40,7 @@ describe MessagingController do
     message = mock_message
     message.should_receive(:unread=)
     message.should_receive(:save)
-    post 'read'
+    post 'read', :id => 1
   end
   
 end

@@ -50,7 +50,7 @@ describe BidsController do
       ability = Ability.new(mock_user)
       @bid.should_receive(:destroy)
       ability.can?(:destroy, @bid).should be_true
-      delete :destroy
+      delete :destroy, :id => 1
       response.should redirect_to(bid_item_path(@bid.bid_item))
     end
   end

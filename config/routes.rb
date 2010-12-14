@@ -31,6 +31,7 @@ OaspCookieOverflow::Application.routes.draw do
   match 'admin/select_user' => 'admin#select_user', :as => :admin_select_user
   match 'admin/support' => 'admin#mail', :as => :admin_support
   match 'admin/send_mail' => 'admin#send_mail', :as => :admin_mail
+  match 'admin/become_seller' => 'admin#become_seller', :as => :become_seller
   match 'admin/edit_user_permissions' => 'admin#edit_user_permissions', :as => :admin_edit_user
   match 'admin/change_user_permissions' => 'admin#change_user_permissions', :as => :admin_edit_user_commit
   

@@ -45,7 +45,7 @@ describe TagsController do
       ability = Ability.new(mock_user)
       ability.can?(:destroy, mock_tag).should be_true
       mock_tag.should_receive(:destroy).with(no_args)
-      delete 'destroy'
+      delete 'destroy', :id => 1
       response.should redirect_to(root_url)
     end
   end
