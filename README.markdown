@@ -1,6 +1,9 @@
 Team CookieOverflow
 -------------------
 
+Migrating to Rails 3
+--------------------
+
 The most delicious exception ever!
 
 Demo Setup
